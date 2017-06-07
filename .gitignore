@@ -1,0 +1,60 @@
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+publish
+csx
+.vs
+/Cascade/Backup10
+/Cascade/Backup
+/Cascade/Backup1
+/Cascade/Backup2
+/Cascade/Backup3
+/Cascade/Backup4
+/Cascade/Backup5
+/Cascade/Backup6
+/Cascade/Backup7
+/Cascade/Backup8
+/Cascade/Backup9
+/Cascade/Deliverables/Documentation
+/Cascade/JobSystem/binx
+*.log
+*.dll
+!**/lib/*.dll
+*.pdb
+/Cascade/TestConsole/dlls
+/Cascade/MAIN - Shortcut.lnk
+/Cascade/MOSI.zip
+/Cascade/CascadeCore.CloudService/Profiles/CascadeQAManagePortalStaging.azurePubxml
+/Deliverables/Documentation
+*.wadcfgx
+/Fabdev/Cascade/Backup
+/Fabdev/Cascade/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+/Cascade/*.htm
+/intYAzure.publishsettings
+/Fabdev/Cascade/FabdevCloudService/ZuoraCallbackContent/ServiceConfiguration.Debug.cscfg
+/Cascade/Documentation/~$SCADE API - v2.8.0.1.docx
+/Cascade/Connectors.MOSI/TracingAndLogging-service.svclog
+/Fabdev/Cascade/TestConsole
+/Cascade/Inty.Api.Tests
+*.orig
+/Cascade/Application.AccessValidation/app_BACKUP_23444.config
+/Cascade/Application.AccessValidation/app_BASE_23444.config
+/Cascade/Application.AccessValidation/app_REMOTE_23444.config
+/Cascade/Application.AccessValidation/app_LOCAL_23444.config
+/Fabdev/Cascade/Inty.Partner.Microsoft/Crest/CrestService.cs~a7d1c5ac1894f04e0a857b6de81cce1c6fc723ad
+*.data
+/SQLReports/CASCADE Reports/intY Sales Reports/Partner Run Rate - Backup (2).rdl
+/SQLReports/CASCADE Reports/intY Sales Reports/Order Ticker - Backup.rdl
+/SQLReports/CASCADE Reports/intY Sales Reports/Partner Run Rate - Backup.rdl
+/SQLReports/CASCADE Reports/intY Sales Reports/Contract Lines - Backup.rdl
+/SQLReports/CASCADE Reports/intY Sales Reports/Partner Ticker - Backup.rdl
+/SQLReports/CASCADE Reports/intY Business Reports/Orders placed by Staff - Backup.rdl
+/SQLReports/CASCADE Reports/intY Business Reports/Stored Procedure Audit - Backup.rdl
+/SQLReports/CASCADE Reports/intY Business Reports/Stored Procedure Audit Log 2 - Backup.rdl
+/SQLReports/CASCADE Reports/intY System/Reporting Services Usage Report - Backup.rdl
+!intY.Security.dll
+/Fabdev/Cascade/FederationProvider/intY.Security.dll
+/Fabdev/Cascade/Lib
