@@ -1,4 +1,10 @@
-﻿namespace Recodify.CRM.FEx.Exetensions
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Recodify.CRM.FEx
 {
 	public static class IntegerExtensions
 	{

@@ -1,6 +1,5 @@
 ﻿using System;
 using Quartz;
-using Recodify.CRM.FEx.Exetensions;
 
 namespace Recodify.CRM.FEx.Scheduling
 {

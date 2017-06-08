@@ -3,42 +3,69 @@ using System.Activities;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Sdk.Workflow;
+using Recodify.CRM.FEx.Data;
+using Recodify.CRM.FEx.Scheduling;
 
 namespace Recodify.CRM.FEx.Activities
 {
     public class CalculateNextRunDateActivity : CodeActivity
     {
-		[RequiredArgument]
-		[Input("Counter")]
-		[ReferenceTarget("c9_counter")]
-		public InArgument<EntityReference> InputEntity { get; set; }
-
 		protected override void Execute(CodeActivityContext executionContext)
 		{
-			var tracingService = GetTraceService(executionContext);	
-			var workflowContext = GetWorkflowContext(executionContext, tracingService);
-			var organizationService = GetOrganizationService(workflowContext.UserId, executionContext);
-			var configEntity = GetFExConfiguration(executionContext, organizationService);
+			var tracingService = GetTraceService(executionContext);
+			try
+			{
+				
+				var workflowContext = GetWorkflowContext(executionContext, tracingService);
+				var organizationService = GetOrganizationService(workflowContext.UserId, executionContext);
+				var config = GetFExConfiguration(workflowContext, organizationService);
 
+				SetNextRunDate(config);
+				Persist(organizationService, config, tracingService);
+			}
+			catch (Exception exp)
+			{
+				tracingService.Trace(exp.ToString());
+				throw exp;
+			}
 		}
 
-	    private Entity GetFExConfiguration(CodeActivityContext executionContext, IOrganizationService organizationService)
+	    private static void Persist(IOrganizationService organizationService, FExConfig config, ITracingService tracingService)
 	    {
-		    var configEntity = organizationService.Retrieve("recodify_FExConfig",
-			    this.InputEntity.Get(executionContext).Id, new ColumnSet(
-				    "recodify_Frequency",
-				    "recodify_Time",
-				    "recodify_Day",
-				    "recodify_BaseCurrencyId",
-				    "recodify_NextRun",
-				    "recodify_DataSource"));
+		    organizationService.Update(config.Entity);
+		    tracingService.Trace($"Successfully set the next run date to {config.NextRunDate}");
+	    }
+
+	    private static void SetNextRunDate(FExConfig config)
+	    {
+		    var calculator = new DateCalculator(config.NextRunDate,
+			    new DateTimeOffset(DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc)));
+		    var nextRunDate = calculator.Calculate(config.Frequency, config.Day, config.Time);
+		    if (!nextRunDate.HasValue)
+		    {
+			    throw new InvalidWorkflowException(
+				    "Null valued NextRunDate calculated, there is probably a problem with the derived CRON expression. Check your scheduling data for valid values.");
+		    }
+
+		    config.NextRunDate = nextRunDate.Value;
+	    }
+
+	    private FExConfig GetFExConfiguration(
+			IWorkflowContext workflowContext,
+			IOrganizationService organizationService)
+	    {
+			
+		    var configEntity = organizationService.Retrieve(
+				ConfigAttribute.ConfigEntityName, 
+				workflowContext.PrimaryEntityId, 
+				new ColumnSet(ConfigAttribute.AllCustomAttriutes));
 
 			if (configEntity == null)
 		    {
 				throw new InvalidWorkflowException("Failed to retrieve FExConfig Entity.");
 			}
 
-		    return configEntity;
+		    return new FExConfig(configEntity);
 	    }
 
 	    private IOrganizationService GetOrganizationService(Guid userId, CodeActivityContext executionContext)

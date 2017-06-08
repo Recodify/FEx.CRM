@@ -2,8 +2,8 @@
 {
 	public enum Frequency
 	{
-		Monthly = 1,
-		Weekly = 2,
-		Daily = 3
+		Monthly = 550390000,
+		Weekly = 550390001,
+		Daily = 550390002
 	}
 }
