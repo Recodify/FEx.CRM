@@ -4,26 +4,23 @@ using Quartz;
 namespace Recodify.CRM.FEx.Scheduling
 {
 	public class DateCalculator
-	{
-		private readonly DateTimeOffset? lastRunDate;
+	{ 
 		private readonly DateTimeOffset currentDate;
 
-		public DateCalculator(DateTimeOffset? lastRunDate, DateTimeOffset currentDate)
+		public DateCalculator(DateTimeOffset currentDate)
 		{
-			this.lastRunDate = lastRunDate;
 			this.currentDate = currentDate;
 		}
 
 		public DateTimeOffset? Calculate(Frequency frequency, int day, decimal time)
 		{
-			var referenceTime = lastRunDate ?? currentDate;
 			var hour = Math.Floor(time);
 			var min = (time - hour) * 100;
 			
 			var expressionString = BuildExpressionString(frequency, day, min, hour);
 
 			var expresion = new CronExpression(expressionString) {TimeZone = TimeZoneInfo.Utc};
-			var nextDate = expresion.GetNextValidTimeAfter(referenceTime);
+			var nextDate = expresion.GetNextValidTimeAfter(currentDate);
 			return nextDate;
 		}
 

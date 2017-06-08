@@ -94,6 +94,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\CalculateNextRunDateActivity.cs" />
+    <Compile Include="Activities\FExCodeActivityBase.cs" />
+    <Compile Include="Activities\PerformRateSyncActivity.cs" />
     <Compile Include="Data\ConfigAttribute.cs" />
     <Compile Include="Data\FExConfig.cs" />
     <Compile Include="Scheduling\DateCalculator.cs" />
