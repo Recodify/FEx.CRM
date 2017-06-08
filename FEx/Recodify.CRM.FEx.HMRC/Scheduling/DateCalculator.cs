@@ -1,7 +1,8 @@
 ﻿using System;
 using Quartz;
+using Recodify.CRM.FEx.Core.Extensions;
 
-namespace Recodify.CRM.FEx.Scheduling
+namespace Recodify.CRM.FEx.Core.Scheduling
 {
 	public class DateCalculator
 	{ 

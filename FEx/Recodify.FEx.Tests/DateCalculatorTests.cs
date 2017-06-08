@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Recodify.CRM.FEx;
-using Recodify.CRM.FEx.Scheduling;
+using Recodify.CRM.FEx.Core.Scheduling;
 
 namespace Recodify.FEx.Tests
 {

@@ -2,10 +2,10 @@
 using System.Activities;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
-using Recodify.CRM.FEx.Data;
-using Recodify.CRM.FEx.Scheduling;
+using Recodify.CRM.FEx.Core.Models.Dynamics;
+using Recodify.CRM.FEx.Core.Scheduling;
 
-namespace Recodify.CRM.FEx.Activities
+namespace Recodify.CRM.FEx.Dynamics.Activities
 {
 	public class CalculateNextRunDateActivity : FExCodeActivityBase
     {		
@@ -31,9 +31,10 @@ namespace Recodify.CRM.FEx.Activities
 		}
 
 	    private void SetNextRunDate(FExConfig config, CodeActivityContext context, IOrganizationService organizationService, ITracingService tracingService)
-	    {			
-			var calculator = new DateCalculator();
-		    var nextRunDate = calculator.Calculate(config.Frequency, config.Day, config.Time);
+	    {
+		    var calculator = new DateCalculator(new DateTimeOffset(DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc)));
+			// TODO: If last status is error, back off and retry, else calculate from schedule
+			var nextRunDate = calculator.Calculate(config.Frequency, config.Day, config.Time);
 		    if (!nextRunDate.HasValue)
 		    {
 			    throw new InvalidWorkflowException(
@@ -42,7 +43,7 @@ namespace Recodify.CRM.FEx.Activities
 
 		    config.NextRunDate = nextRunDate.Value;
 		    this.NextRunDate.Set(context, nextRunDate.Value.UtcDateTime);
-			config.RemoveAllUserTriggeringAttributes();
+			config.RemoveNonPersistableAttributes();
 			organizationService.Update(config.Entity);
 			tracingService.Trace($"Successfully set the next run date to {nextRunDate}");
 		}  

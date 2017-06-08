@@ -3,9 +3,9 @@ using System.Activities;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Sdk.Workflow;
-using Recodify.CRM.FEx.Data;
+using Recodify.CRM.FEx.Core.Models.Dynamics;
 
-namespace Recodify.CRM.FEx.Activities
+namespace Recodify.CRM.FEx.Dynamics.Activities
 {
 	public abstract class FExCodeActivityBase : CodeActivity
 	{

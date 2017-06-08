@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Activities;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Recodify.CRM.FEx.Data;
+using Microsoft.Xrm.Sdk;
+using Recodify.CRM.FEx.Core.Models.Dynamics;
 
-namespace Recodify.CRM.FEx.Activities
+namespace Recodify.CRM.FEx.Dynamics.Activities
 {
 	public class PerformRateSyncActivity : FExCodeActivityBase
 	{
@@ -19,18 +16,26 @@ namespace Recodify.CRM.FEx.Activities
 				var organizationService = GetOrganizationService(workflowContext.UserId, executionContext);
 				var config = GetFExConfiguration(workflowContext, organizationService, ConfigAttribute.RunAttributes);
 				tracingService.Trace("Syncing Rates");
-				config.LastSyncDate = DateTime.UtcNow;
-				tracingService.Trace("Set Last Sync Date to: " + config.LastSyncDate);
-				config.RemoveAllUserTriggeringAttributes();
-				organizationService.Update(config.Entity);
+				
+				SetLastSyncDate(tracingService, config, organizationService);
 				tracingService.Trace("Synced Rates");
 					
 			}
 			catch (Exception exp)
 			{
+				//TODO: Set last status to error.
 				tracingService.Trace(exp.ToString());
 				throw;
 			}
+		}
+
+		private static void SetLastSyncDate(ITracingService tracingService, FExConfig config,
+			IOrganizationService organizationService)
+		{
+			tracingService.Trace("Set Last Sync Date to: " + config.LastSyncDate);
+			config.LastSyncDate = DateTime.UtcNow;
+			config.RemoveNonPersistableAttributes();
+			organizationService.Update(config.Entity);
 		}
 	}
 }

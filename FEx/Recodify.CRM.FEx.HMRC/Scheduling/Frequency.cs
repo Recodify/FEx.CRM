@@ -1,4 +1,4 @@
-﻿namespace Recodify.CRM.FEx.Scheduling
+﻿namespace Recodify.CRM.FEx.Core.Scheduling
 {
 	public enum Frequency
 	{
