@@ -2,6 +2,7 @@
 using System.Activities;
 using Microsoft.Xrm.Sdk;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
+using Recodify.CRM.FEx.Dynamics.Repositories;
 
 namespace Recodify.CRM.FEx.Dynamics.Activities
 {
@@ -16,7 +17,10 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 				var organizationService = GetOrganizationService(workflowContext.UserId, executionContext);
 				var config = GetFExConfiguration(workflowContext, organizationService, ConfigAttribute.RunAttributes);
 				tracingService.Trace("Syncing Rates");
-				
+
+				var name = new OrganizationRepository(organizationService).GetUniqueName();
+				tracingService.Trace("Org unique retreived as: " + name);
+
 				SetLastSyncDate(tracingService, config, organizationService);
 				tracingService.Trace("Synced Rates");
 					

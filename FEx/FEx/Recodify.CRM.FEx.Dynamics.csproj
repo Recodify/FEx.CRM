@@ -96,7 +96,10 @@
     <Compile Include="Activities\CalculateNextRunDateActivity.cs" />
     <Compile Include="Activities\FExCodeActivityBase.cs" />
     <Compile Include="Activities\PerformRateSyncActivity.cs" />
+    <Compile Include="PluginConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\FetchService.cs" />
+    <Compile Include="Repositories\OrganizationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ILMerge.props" />

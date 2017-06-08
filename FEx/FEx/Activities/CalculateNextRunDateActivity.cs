@@ -4,6 +4,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Core.Scheduling;
+using Recodify.CRM.FEx.Dynamics.Repositories;
 
 namespace Recodify.CRM.FEx.Dynamics.Activities
 {
@@ -21,7 +22,7 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 				var workflowContext = GetWorkflowContext(executionContext, tracingService);
 				var organizationService = GetOrganizationService(workflowContext.UserId, executionContext);
 				var config = GetFExConfiguration(workflowContext, organizationService, ConfigAttribute.SchedulingAttributes);
-				SetNextRunDate(config, executionContext, organizationService, tracingService);
+				SetNextRunDate(config, executionContext, organizationService, tracingService);				
 			}
 			catch (Exception exp)
 			{
