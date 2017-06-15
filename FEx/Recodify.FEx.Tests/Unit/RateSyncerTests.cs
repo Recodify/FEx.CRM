@@ -21,9 +21,10 @@ namespace Recodify.CRM.FEx.Tests.Unit
 		public void ShouldLogWarning_WhenRateDataNotAvaliable()
 		{
 			var loggingService = new Mock<ILoggingService>();
-			var rateSyncer = new RateSyncer(new MockFExConfig { }, loggingService.Object);
+			var baseCurrencyId = Guid.NewGuid();
+			var rateSyncer = new RateSyncer(new MockFExConfig { BaseCurrencyId = baseCurrencyId }, loggingService.Object);
 
-			var currencies = CreateCurrencyCollection(Guid.NewGuid());
+			var currencies = CreateCurrencyCollection(baseCurrencyId);
 
 			var rates = new ExchangeRateCollection
 			{
@@ -44,9 +45,9 @@ namespace Recodify.CRM.FEx.Tests.Unit
 		[Test]
 		public void ShouldUpdateExchangeRatesForPassedCurrencies()
 		{
-			var rateSyncer = new RateSyncer(new MockFExConfig{ }, new Mock<ILoggingService>().Object);
-
-			var currencies = CreateCurrencyCollection(Guid.NewGuid());
+			var baseCurrencyId = Guid.NewGuid();
+			var rateSyncer = new RateSyncer(new MockFExConfig{ BaseCurrencyId = baseCurrencyId}, new Mock<ILoggingService>().Object);			
+			var currencies = CreateCurrencyCollection(baseCurrencyId);
 
 			var rates = new ExchangeRateCollection
 			{
