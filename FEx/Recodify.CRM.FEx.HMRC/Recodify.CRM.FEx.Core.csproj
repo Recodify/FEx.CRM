@@ -100,6 +100,7 @@
     <Compile Include="Models\Generic\ExchangeRateCollection.cs" />
     <Compile Include="Models\HMRC\HmrcExchangeRate.cs" />
     <Compile Include="Models\HMRC\HmrcExchangeRateCollection.cs" />
+    <Compile Include="Monitoring\RunStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DynamicsRepository.cs" />
     <Compile Include="Repositories\FetchService.cs" />

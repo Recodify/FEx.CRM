@@ -44,6 +44,8 @@ namespace Recodify.CRM.FEx.Core.Jobs
 
 			trace.Trace(TraceEventType.Information, (int)EventId.SavingCurrencies, "Saving updated currencies to CRM");
 			repo.SaveCurrencies(currencies);
+
+			SetLastSyncDate();
 		}
 
 		private string GetOrganisationUniqueName()

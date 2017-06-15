@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 using Recodify.CRM.FEx.Core.Exchange;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
+using Recodify.CRM.FEx.Core.Monitoring;
 using Recodify.CRM.FEx.Core.Scheduling;
 
 namespace Recodify.CRM.FEx.Tests.Framework
@@ -21,11 +22,13 @@ namespace Recodify.CRM.FEx.Tests.Framework
 		public decimal Time { get; set; }
 		public string RecodifyFExUrl { get { return ConfigurationManager.AppSettings["RecodifyFExUrl"]; } }
 		public Guid BaseCurrencyId { get; set; }
+		public int Revision { get; set; }
+		public RunStatus LastRunStatus { get; set; }
 		public void RemoveNonPersistableAttributes()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Entity Entity { get; }
+		public Entity Entity { get; }		
 	}
 }

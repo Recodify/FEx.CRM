@@ -23,7 +23,9 @@ namespace Recodify.CRM.FEx.Tests.Integration.Core
 			var repo = new AssertableDynamicsRepo(service);
 			var job = new RateSyncJob(repo, service, config, new Mock<ILoggingService>().Object);
 			job.Execute();
-			Assert.That(repo.SaveCurrenciesCallCount, Is.EqualTo(1));
+			Assert.That(repo.SaveCurrenciesCallCount, Is.EqualTo(1));			
+			Assert.That(config.LastSyncDate.Hour, Is.EqualTo(DateTime.UtcNow.Hour));
+			Assert.That(config.LastSyncDate.Date, Is.EqualTo(DateTime.UtcNow.Date));
 		}
 	}
 }

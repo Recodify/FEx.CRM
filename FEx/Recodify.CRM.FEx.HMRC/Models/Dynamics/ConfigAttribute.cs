@@ -10,6 +10,8 @@
 		public const string Time = "recodify_time";
 		public const string Frequency = "recodify_frequency";
 		public const string LastRunDate = "recodify_lastrundate";
+		public const string Revision = "recodify_revision";
+		public const string LastRunStatus = "recodify_lastrunstatus";
 
 		public static string[] AllCustomAttributes => new[]
 		{
@@ -33,14 +35,16 @@
 			LastRunDate,
 			NextRun,
 			DataSource,
-			BaseCurrencyId,			
+			BaseCurrencyId,	
+			LastRunStatus
 		};
 
 		public static string[] SchedulingAttributes => new[]
 		{
 			Day,
 			Time,
-			Frequency
+			Frequency,
+			Revision
 		};
 	}
 }

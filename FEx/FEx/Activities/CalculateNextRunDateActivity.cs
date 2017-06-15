@@ -14,15 +14,20 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 		[AttributeTarget(ConfigAttribute.ConfigEntityName, ConfigAttribute.NextRun)]	
 		public OutArgument<DateTime> NextRunDate { get; set; }
 
+		[Output("Current Revision")]		
+		public OutArgument<int> CurrentRevision { get; set; }
+
 		protected override void Execute(CodeActivityContext executionContext)
 		{
 			var tracingService = GetTraceService(executionContext);
 			try
-			{				
+			{						
 				var workflowContext = GetWorkflowContext(executionContext, tracingService);
+				
 				var organizationService = GetOrganizationService(workflowContext.UserId, executionContext);
-				var config = organizationService.GetFExConfiguration(workflowContext.PrimaryEntityId, ConfigAttribute.SchedulingAttributes);
-				SetNextRunDate(config, executionContext, organizationService, tracingService);				
+				var config = organizationService.GetFExConfiguration(workflowContext.PrimaryEntityId, ConfigAttribute.SchedulingAttributes);				
+				CurrentRevision.Set(executionContext, config.Revision);
+				SetNextRunDate(config, executionContext, organizationService, tracingService);
 			}
 			catch (Exception exp)
 			{

@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
 using Recodify.CRM.FEx.Core.Exchange;
+using Recodify.CRM.FEx.Core.Monitoring;
 using Recodify.CRM.FEx.Core.Scheduling;
 
 namespace Recodify.CRM.FEx.Core.Models.Dynamics
@@ -44,6 +45,10 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 		}
 
 		public Entity Entity => entity;
+
+		public int Revision => GetAttributeValue<int>(ConfigAttribute.Revision);
+
+		public RunStatus LastRunStatus => (RunStatus)GetAttributeValue<OptionSetValue>(ConfigAttribute.LastRunStatus).Value;
 
 		public Frequency Frequency => (Frequency) (GetAttributeValue<OptionSetValue>(ConfigAttribute.Frequency)).Value;
 
