@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
 using Recodify.CRM.FEx.Core.Exchange;
@@ -7,13 +8,27 @@ using Recodify.CRM.FEx.Core.Scheduling;
 
 namespace Recodify.CRM.FEx.Core.Models.Dynamics
 {
-	public class FExConfig
+	public class FExConfig : IFExConfig
 	{
 		private readonly Entity entity;
 
 		public FExConfig(Entity entity)
 		{
 			this.entity = entity;
+		}
+
+		public string RecodifyFExUrl
+		{
+			get
+			{
+				var configUrl = ConfigurationManager.AppSettings["RecodifyFExUrl"];
+				if (string.IsNullOrWhiteSpace(configUrl))
+				{
+					return $"http://fex.recodify.co.uk/";
+				}
+
+				return configUrl;
+			}
 		}
 
 		public DateTimeOffset NextRunDate

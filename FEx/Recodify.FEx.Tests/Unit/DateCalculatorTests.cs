@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
-using Recodify.CRM.FEx;
 using Recodify.CRM.FEx.Core.Scheduling;
 
-namespace Recodify.FEx.Tests
+namespace Recodify.CRM.FEx.Tests.Unit
 {
     public class DateCalculatorTests
     {

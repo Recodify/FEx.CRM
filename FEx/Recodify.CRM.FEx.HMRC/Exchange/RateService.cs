@@ -1,20 +1,40 @@
-﻿using Recodify.CRM.FEx.Core.Models.Dynamics;
+﻿using System;
+using System.IO;
+using Recodify.CRM.FEx.Core.Exceptions;
+using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Rates.Models.Generic;
+using RestSharp;
 
 namespace Recodify.CRM.FEx.Core.Exchange
 {
 	public class RateService
 	{
-		private readonly FExConfig config;
+		private readonly IFExConfig config;
 
-		public RateService(FExConfig config)
+		public RateService(IFExConfig config)
 		{
 			this.config = config;
 		}
 
-		public ExchangeRateCollection GetRates()
+		public ExchangeRateCollection GetRates(string crmUniqueName)
 		{
-			return null;
+			var client = new RestClient(config.RecodifyFExUrl);
+			var request = new RestRequest(BuildResourceUrl(crmUniqueName), Method.GET);
+			var response = client.Execute<ExchangeRateCollection>(request);
+
+			if (response.StatusCode != System.Net.HttpStatusCode.OK)
+			{
+				var message = response?.Data?.Message;
+				throw new RateSyncException(
+					$"Error communicating with the rate api. Status Code: {response.StatusCode}. Message: {message}");
+			}
+
+			return response.Data;
+		}
+
+		private string BuildResourceUrl(string crmUniqueName)
+		{
+			return $"api/rates?rateSource={config.DataSource}&id={crmUniqueName}";
 		}
 	}	
 }

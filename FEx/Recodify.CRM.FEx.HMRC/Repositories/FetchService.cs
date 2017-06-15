@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
 
-namespace Recodify.CRM.FEx.Dynamics.Repositories
+namespace Recodify.CRM.FEx.Core.Repositories
 {
 	public class FetchService
 	{

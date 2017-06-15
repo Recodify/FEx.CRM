@@ -29,6 +29,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Recodify.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
@@ -74,17 +80,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\RateSyncException.cs" />
     <Compile Include="Exchange\RateDataSource.cs" />
     <Compile Include="Exchange\RateService.cs" />
     <Compile Include="Extensions\IntegerExtensions.cs" />
     <Compile Include="HmrcExchangeRateService.cs" />
     <Compile Include="Models\Dynamics\ConfigAttribute.cs" />
     <Compile Include="Models\Dynamics\FExConfig.cs" />
+    <Compile Include="Models\Dynamics\IFExConfig.cs" />
     <Compile Include="Models\Generic\ExchangeRate.cs" />
     <Compile Include="Models\Generic\ExchangeRateCollection.cs" />
     <Compile Include="Models\HMRC\HmrcExchangeRate.cs" />
     <Compile Include="Models\HMRC\HmrcExchangeRateCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DynamicsRepository.cs" />
+    <Compile Include="Repositories\FetchService.cs" />
     <Compile Include="Scheduling\DateCalculator.cs" />
     <Compile Include="Scheduling\Frequency.cs" />
   </ItemGroup>
@@ -93,7 +103,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Recodify.snk" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Dynamics\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

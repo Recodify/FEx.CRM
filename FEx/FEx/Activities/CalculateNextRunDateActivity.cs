@@ -4,7 +4,6 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Core.Scheduling;
-using Recodify.CRM.FEx.Dynamics.Repositories;
 
 namespace Recodify.CRM.FEx.Dynamics.Activities
 {
