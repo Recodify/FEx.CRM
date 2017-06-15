@@ -11,9 +11,9 @@ namespace Recodify.CRM.FEx.Tests.Unit
 		{
 			var currentDate = DateTime.UtcNow;
 			var currentHour = currentDate.Hour;
-			var currentMinute = currentDate.Minute;
+			var currentMinute = 50;
 			var scheduledTime = (decimal)(currentHour + (decimal)currentMinute / 100);
-			var date = new DateCalculator(new DateTime(2017, 06, currentDate.Day, 22, currentDate.Hour, currentDate.Minute - 10, DateTimeKind.Utc))
+			var date = new DateCalculator(new DateTime(2017, 06, currentDate.Day, 22, currentDate.Hour, currentMinute - 10, DateTimeKind.Utc))
 				.Calculate(Frequency.Daily, 10, scheduledTime);
 			Assert.That(date.Value.Month, Is.EqualTo(6));
 			Assert.That(date.Value.Day, Is.EqualTo(currentDate.Day + 1));

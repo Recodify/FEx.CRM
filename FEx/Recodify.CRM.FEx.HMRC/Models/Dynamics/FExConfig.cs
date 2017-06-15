@@ -44,9 +44,15 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 		}
 
 		public Entity Entity => entity;
+
 		public Frequency Frequency => (Frequency) (GetAttributeValue<OptionSetValue>(ConfigAttribute.Frequency)).Value;
+
 		public RateDataSource DataSource => (RateDataSource)(GetAttributeValue<OptionSetValue>(ConfigAttribute.DataSource)).Value;
+
+		public Guid BaseCurrencyId => GetAttributeValue<Guid>(ConfigAttribute.BaseCurrencyId);
+
 		public int Day => GetAttributeValue<int>(ConfigAttribute.Day);
+
 		public decimal Time => GetAttributeValue<decimal>(ConfigAttribute.Time);
 
 		// It is only safe to persist the attributes not removed by this method as the others are editable by the user and will

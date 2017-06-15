@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Activities;
 using Microsoft.Xrm.Sdk;
+using Recodify.CRM.FEx.Core.Jobs;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Core.Repositories;
+using Recodify.CRM.FEx.Core.Logging;
 
 namespace Recodify.CRM.FEx.Dynamics.Activities
 {
@@ -18,10 +20,9 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 				var config = GetFExConfiguration(workflowContext, organizationService, ConfigAttribute.RunAttributes);
 				tracingService.Trace("Syncing Rates");
 
-				var name = new DynamicsRepository(organizationService).GetUniqueName();
-				tracingService.Trace("Organisation unique name retreived as: " + name);
-
-				SetLastSyncDate(tracingService, config, organizationService);
+				var rateSyncJob = new RateSyncJob(organizationService, config, new LoggingService(tracingService));
+				rateSyncJob.Execute();
+								
 				tracingService.Trace("Synced Rates");
 					
 			}
@@ -31,15 +32,6 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 				tracingService.Trace(exp.ToString());
 				throw;
 			}
-		}
-
-		private static void SetLastSyncDate(ITracingService tracingService, FExConfig config,
-			IOrganizationService organizationService)
-		{
-			tracingService.Trace("Set Last Sync Date to: " + config.LastSyncDate);
-			config.LastSyncDate = DateTime.UtcNow;
-			config.RemoveNonPersistableAttributes();
-			organizationService.Update(config.Entity);
-		}
+		}		
 	}
 }
