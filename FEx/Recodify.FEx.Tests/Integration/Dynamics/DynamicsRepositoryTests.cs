@@ -11,9 +11,9 @@ namespace Recodify.CRM.FEx.Tests.Integration.Dynamics
 		private DynamicsRepository repo;
 
 		[SetUp]
-		private void SetUp()
+		public void SetUp()
 		{
-			var service = CreateOrganisationService();
+			var service = new OrganisationServiceFactory().Create();
 			repo = new DynamicsRepository(service);
 		}
 
@@ -30,14 +30,6 @@ namespace Recodify.CRM.FEx.Tests.Integration.Dynamics
 		{
 			var result = repo.GetUniqueName();
 			Assert.That(result, Is.EqualTo("ingtysandbox"));
-		}
-
-		private IOrganizationService CreateOrganisationService()
-		{
-			var config = new TestDynamicsConfiguration();
-			return new CrmServiceClient(config.Username, CrmServiceClient.MakeSecureString(config.Password),
-				config.DynamicsRegion, config.OrganisationName,
-				false, true, isOffice365: true);
-		}
+		}		
 	}
 }

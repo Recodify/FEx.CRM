@@ -49,7 +49,7 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 
 		public RateDataSource DataSource => (RateDataSource)(GetAttributeValue<OptionSetValue>(ConfigAttribute.DataSource)).Value;
 
-		public Guid BaseCurrencyId => GetAttributeValue<Guid>(ConfigAttribute.BaseCurrencyId);
+		public Guid BaseCurrencyId => GetAttributeValue<EntityReference>(ConfigAttribute.BaseCurrencyId).Id;
 
 		public int Day => GetAttributeValue<int>(ConfigAttribute.Day);
 

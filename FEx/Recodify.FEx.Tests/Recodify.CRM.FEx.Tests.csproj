@@ -89,10 +89,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\AssertableDynamicsRepo.cs" />
     <Compile Include="Framework\Currency.cs" />
     <Compile Include="Framework\MockFExConfig.cs" />
+    <Compile Include="Framework\OrganisationServiceFactory.cs" />
     <Compile Include="Framework\TestDynamicsConfiguration.cs" />
     <Compile Include="Integration\Core\RateServiceTests.cs" />
+    <Compile Include="Integration\Core\RateSyncJobTests.cs" />
     <Compile Include="Integration\Dynamics\DynamicsRepositoryTests.cs" />
     <Compile Include="Unit\DateCalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

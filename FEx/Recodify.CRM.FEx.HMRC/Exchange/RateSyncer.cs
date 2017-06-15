@@ -25,7 +25,7 @@ namespace Recodify.CRM.FEx.Core.Exchange
 
 		public EntityCollection Sync(EntityCollection currencies, ExchangeRateCollection rates)
 		{
-			foreach (var cur in currencies.Entities.Where(x => x.Id != config.BaseCurrencyId))
+			foreach (var cur in currencies.Entities)
 			{
 				var currencyCode = (string) cur.Attributes[CurrencyAttribute.CurrencyCode];
 				var rate = rates.Items.SingleOrDefault(x => x.CurrencyCode.Equals(currencyCode, StringComparison.OrdinalIgnoreCase));
@@ -40,6 +40,7 @@ namespace Recodify.CRM.FEx.Core.Exchange
 				}				
 			}
 
+			currencies.Entities.Remove(currencies.Entities.Single(x => x.Id == config.BaseCurrencyId));
 			return currencies;
 		}
 	}

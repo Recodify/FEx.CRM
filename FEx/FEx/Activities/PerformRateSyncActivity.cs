@@ -5,6 +5,7 @@ using Recodify.CRM.FEx.Core.Jobs;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Core.Repositories;
 using Recodify.CRM.FEx.Core.Logging;
+using Recodify.CRM.FEx.Core.Extensions;
 
 namespace Recodify.CRM.FEx.Dynamics.Activities
 {
@@ -17,10 +18,10 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 			{
 				var workflowContext = GetWorkflowContext(executionContext, tracingService);
 				var organizationService = GetOrganizationService(workflowContext.UserId, executionContext);
-				var config = GetFExConfiguration(workflowContext, organizationService, ConfigAttribute.RunAttributes);
+				var config = organizationService.GetFExConfiguration(workflowContext.PrimaryEntityId, ConfigAttribute.RunAttributes);
 				tracingService.Trace("Syncing Rates");
 
-				var rateSyncJob = new RateSyncJob(organizationService, config, new LoggingService(tracingService));
+				var rateSyncJob = new RateSyncJob(new DynamicsRepository(organizationService), organizationService, config, new LoggingService(tracingService));
 				rateSyncJob.Execute();
 								
 				tracingService.Trace("Synced Rates");

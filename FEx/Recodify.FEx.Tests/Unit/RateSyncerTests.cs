@@ -67,7 +67,7 @@ namespace Recodify.CRM.FEx.Tests.Unit
 		}
 
 		[Test]
-		public void ShouldNotUpdateBaseCurrency()
+		public void ShouldNotReturnBaseCurrencies()
 		{
 			var baseCurencyId = Guid.NewGuid();
 			var rateSyncer = new RateSyncer(new MockFExConfig { BaseCurrencyId = baseCurencyId }, new Mock<ILoggingService>().Object);
@@ -86,8 +86,8 @@ namespace Recodify.CRM.FEx.Tests.Unit
 
 			var result = rateSyncer.Sync(currencies, rates);
 
-			var gbp = result.Entities.Single(x => ((string)x.Attributes[CurrencyAttribute.CurrencyCode]) == CurrencyCode.GBP);
-			Assert.That((decimal)gbp.Attributes[CurrencyAttribute.ExchangeRate], Is.EqualTo(1));
+			var gbp = result.Entities.SingleOrDefault(x => ((string)x.Attributes[CurrencyAttribute.CurrencyCode]) == CurrencyCode.GBP);
+			Assert.That(gbp, Is.Null);
 		}
 
 		private EntityCollection CreateCurrencyCollection(Guid baseCurrencyId)

@@ -9,25 +9,6 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 {
 	public abstract class FExCodeActivityBase : CodeActivity
 	{
-		protected FExConfig GetFExConfiguration(
-			IWorkflowContext workflowContext,
-			IOrganizationService organizationService,
-			string[] attributes)
-		{
-
-			var configEntity = organizationService.Retrieve(
-				ConfigAttribute.ConfigEntityName,
-				workflowContext.PrimaryEntityId,
-				new ColumnSet(attributes));
-
-			if (configEntity == null)
-			{
-				throw new InvalidWorkflowException("Failed to retrieve FExConfig Entity.");
-			}
-
-			return new FExConfig(configEntity);
-		}
-
 		protected IOrganizationService GetOrganizationService(Guid userId, CodeActivityContext executionContext)
 		{
 			IOrganizationServiceFactory serviceFactory = executionContext.GetExtension<IOrganizationServiceFactory>();

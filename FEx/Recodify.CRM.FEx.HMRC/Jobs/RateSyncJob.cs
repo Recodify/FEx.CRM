@@ -21,12 +21,12 @@ namespace Recodify.CRM.FEx.Core.Jobs
 		private readonly RateService rateService;
 		private readonly RateSyncer rateSyncer;
 
-		public RateSyncJob(IOrganizationService organisationService, IFExConfig config, ILoggingService trace)
+		public RateSyncJob(DynamicsRepository repository, IOrganizationService organisationService, IFExConfig config, ILoggingService trace)
 		{
 			this.organisationService = organisationService;
 			this.config = config;
 			this.trace = trace;
-			repo = new DynamicsRepository(organisationService);
+			repo = repository;
 			rateService = new RateService(config);
 			rateSyncer = new RateSyncer(config, trace);
 		}

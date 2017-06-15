@@ -14,7 +14,7 @@ namespace Recodify.CRM.FEx.Core.Repositories
 			this.fetchService = new FetchService(organizationService);
 		}
 
-		public void SaveCurrencies(EntityCollection currencies)
+		public virtual void SaveCurrencies(EntityCollection currencies)
 		{
 			foreach (var cur in currencies.Entities)
 			{
