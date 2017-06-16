@@ -8,8 +8,11 @@ namespace Recodify.CRM.FEx.Core.Logging
 {
 	public enum EventId
 	{
+		// Verbose Information
+		NextRunDateOutput = 13001,
+
 		// Information
-		StartingNextRunDateCalculation = 1101,
+		StartingNextRunDateCalculation = 1101,		
 		CompletedNextRunDateCalculationSuccess = 1195,
 
 		StartingRateSync = 1201,

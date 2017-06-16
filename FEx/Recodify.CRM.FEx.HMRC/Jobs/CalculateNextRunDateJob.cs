@@ -32,8 +32,8 @@ namespace Recodify.CRM.FEx.Core.Jobs
 		{
 			trace.Trace(TraceEventType.Information, (int)EventId.StartingNextRunDateCalculation, $"Starting Calculate Next Run Date");
 
-			var calculator = new DateCalculator(new DateTimeOffset(DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc)), depth);			
-			var nextRunDate = calculator.Calculate(config.Frequency, config.Day, config.Time, config.LastRunStatus);
+			var calculator = new DateCalculator(new DateTimeOffset(DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc)), trace);			
+			var nextRunDate = calculator.Calculate(config.Frequency, config.Day, config.Time, config.LastRunStatus, depth);
 			if (!nextRunDate.HasValue)
 			{
 				throw new InvalidWorkflowException(

@@ -1,37 +1,41 @@
 ﻿using System;
+using System.Diagnostics;
 using NodaTime;
 using Quartz;
 using Recodify.CRM.FEx.Core.Extensions;
+using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Monitoring;
 
 namespace Recodify.CRM.FEx.Core.Scheduling
 {
 	public class DateCalculator
 	{ 
-		private readonly DateTimeOffset currentDate;
-		private readonly int depth;
+		private readonly DateTimeOffset currentDate;		
+		private readonly ILoggingService trace;
 		public const int BackOffInterval = 10;
 		public const int MaxBackOffInterval = 65;
 		public const int MaxDepth = 7;
 
-		public DateCalculator(DateTimeOffset currentDate, int depth)
+		public DateCalculator(DateTimeOffset currentDate, ILoggingService trace)
 		{
-			this.currentDate = currentDate;
-			this.depth = depth;
+			this.currentDate = currentDate;			
+			this.trace = trace;
 		}
 
-		public DateTimeOffset? Calculate(Frequency frequency, int day, decimal time, RunStatus lastRunStatus)
-		{			
+		public DateTimeOffset? Calculate(Frequency frequency, int day, decimal time, RunStatus lastRunStatus, int depth)
+		{
 			if (lastRunStatus != RunStatus.Error)
 			{
-				var hour = Math.Floor(time);
-				var min = (time - hour) * 100;
-				var expressionString = BuildExpressionString(frequency, day, min, hour);
-
-				var expresion = new CronExpression(expressionString) { TimeZone = TimeZoneInfo.Utc };
-				var nextDate = expresion.GetNextValidTimeAfter(currentDate);
-				return nextDate;
+				return CalculateFromSchedule(frequency, day, time, lastRunStatus);
 			}
+
+			return BackoffAndRetry(lastRunStatus);
+		}
+
+		private DateTimeOffset? BackoffAndRetry(RunStatus lastRunStatus)
+		{
+			trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput,
+				$"Last Run Status was: {lastRunStatus}. Backing off and retrying.");
 
 			var backOffDateTime = new ZonedDateTime(
 				new LocalDateTime(currentDate.Year, currentDate.Month, currentDate.Day, currentDate.Hour, currentDate.Minute),
@@ -39,15 +43,28 @@ namespace Recodify.CRM.FEx.Core.Scheduling
 
 			if (depth >= MaxDepth)
 			{
+				trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput,
+					$"Current depth {depth} is equal to greater than Max depth {MaxDepth}. Using MaxBackOffInterval of {MaxBackOffInterval}");
 				return new DateTimeOffset(backOffDateTime.PlusMinutes(MaxBackOffInterval).ToDateTimeUtc());
 			}
-			else
-			{
-				return new DateTimeOffset(backOffDateTime.PlusMinutes(depth * BackOffInterval).ToDateTimeUtc());
-			}
 
-			
+			trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput,
+				$"Backing off for {depth * BackOffInterval}");
 
+			return new DateTimeOffset(backOffDateTime.PlusMinutes(depth * BackOffInterval).ToDateTimeUtc());
+		}
+
+		private DateTimeOffset? CalculateFromSchedule(Frequency frequency, int day, decimal time, RunStatus lastRunStatus)
+		{
+			trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput,
+				$"Last Run Status was: {lastRunStatus}. Calcultaing from schedule.");
+			var hour = Math.Floor(time);
+			var min = (time - hour) * 100;
+			var expressionString = BuildExpressionString(frequency, day, min, hour);
+
+			var expresion = new CronExpression(expressionString) {TimeZone = TimeZoneInfo.Utc};
+			var nextDate = expresion.GetNextValidTimeAfter(currentDate);
+			return nextDate;
 		}
 
 		private string BuildExpressionString(Frequency frequency, int day, decimal min, decimal hour)

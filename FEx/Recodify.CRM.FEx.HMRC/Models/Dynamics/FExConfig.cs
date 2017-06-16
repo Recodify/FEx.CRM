@@ -40,7 +40,17 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 
 		public DateTime LastSyncDate
 		{
-			get { return GetAttributeValue<DateTime>(ConfigAttribute.LastRunDate); }
+			get
+			{
+				var lastDate = default(DateTime);
+
+				if (TryGetAttributeValue<DateTime>(ConfigAttribute.LastRunDate, out lastDate))
+				{
+					return lastDate;
+				}
+
+				return DateTime.UtcNow;
+			}
 			set { SetAttributeValue(ConfigAttribute.LastRunDate, value.ToUniversalTime()); }
 		}
 
@@ -50,7 +60,17 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 
 		public RunStatus LastRunStatus
 		{
-			get { return (RunStatus) GetAttributeValue<OptionSetValue>(ConfigAttribute.LastRunStatus).Value; }
+			get
+			{
+				OptionSetValue status;
+
+				if (TryGetAttributeValue(ConfigAttribute.LastRunStatus, out status))
+				{
+					return (RunStatus)status.Value;
+				}
+
+				return RunStatus.Success;
+			}
 			set { SetAttributeAttributeValue(ConfigAttribute.LastRunStatus, () => new OptionSetValue((int)value)); }
 		}
 
@@ -92,11 +112,25 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 			}
 		}
 
-		private T GetAttributeValue<T>(string attributeName)
+		private bool TryGetAttributeValue<T>(string attributeName, out T value)
 		{
 			if (entity.Attributes.ContainsKey(attributeName))
 			{
-				return (T) entity.Attributes[attributeName];
+				value = (T)entity.Attributes[attributeName];
+				return true;
+			}
+
+			value = default(T);
+			return false;
+		}
+
+		private T GetAttributeValue<T>(string attributeName)
+		{
+			var value = default(T);
+
+			if (TryGetAttributeValue(attributeName, out value))
+			{
+				return value;
 			}
 
 			throw new KeyNotFoundException("Unable to find attribute with key " + attributeName + ". Available keys are: " + Enumerable.Aggregate<string>(entity.Attributes.Keys, (c,n) => c + "," + n));
