@@ -54,12 +54,9 @@ namespace Recodify.CRM.FEx.Core.Jobs
 
 		private string GetOrganisationUniqueName()
 		{
-			var name = new DynamicsRepository(organisationService).GetUniqueName();
-			trace.Trace(TraceEventType.Information, (int)EventId.GettingUniqueOrganizationName, "Organisation unique name retreived as: " + name);
+			var name = new DynamicsRepository(organisationService, trace).GetUniqueName();			
 			return name;
-		}		
-
-		
+		}				
 	}
 
 }

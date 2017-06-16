@@ -32,7 +32,7 @@ namespace Recodify.CRM.FEx.Core.Logging
 		// Error
 		UnableToFindRateForCurrency = 5001,
 		CompletedNextRunDateCalculationError = 5195,
-		CompletedRateSyncError = 5495
-
+		CompletedRateSyncError = 5495,
+		ScheduleApiError = 5501
 	}
 }

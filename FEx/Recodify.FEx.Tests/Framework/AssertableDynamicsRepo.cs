@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
+using Moq;
+using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Core.Repositories;
 
@@ -14,7 +16,7 @@ namespace Recodify.CRM.FEx.Tests.Framework
 		public int SaveCurrenciesCallCount;
 		public int SaveNextRunDateCallCount;
 
-		public AssertableDynamicsRepo(IOrganizationService organisationService) : base(organisationService)
+		public AssertableDynamicsRepo(IOrganizationService organisationService) : base(organisationService, new Mock<ILoggingService>().Object)
 		{
 			
 		}

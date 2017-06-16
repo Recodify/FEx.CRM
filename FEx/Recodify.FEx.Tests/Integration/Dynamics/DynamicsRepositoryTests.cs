@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Tooling.Connector;
+using Moq;
 using NUnit.Framework;
+using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Repositories;
 using Recodify.CRM.FEx.Tests.Framework;
 
@@ -14,7 +16,7 @@ namespace Recodify.CRM.FEx.Tests.Integration.Dynamics
 		public void SetUp()
 		{
 			var service = new OrganisationServiceFactory().Create();
-			repo = new DynamicsRepository(service);
+			repo = new DynamicsRepository(service, new Mock<ILoggingService>().Object);
 		}
 
 		[Test]

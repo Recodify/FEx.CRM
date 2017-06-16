@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
+using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 
 namespace Recodify.CRM.FEx.Core.Repositories
@@ -8,11 +10,13 @@ namespace Recodify.CRM.FEx.Core.Repositories
 	public class DynamicsRepository
 	{
 		private readonly IOrganizationService organisationService;
+		private readonly ILoggingService trace;
 		private readonly FetchService fetchService;
 
-		public DynamicsRepository(IOrganizationService organisationService)
+		public DynamicsRepository(IOrganizationService organisationService, ILoggingService trace)
 		{
 			this.organisationService = organisationService;
+			this.trace = trace;
 			this.fetchService = new FetchService(organisationService);
 		}
 
@@ -53,7 +57,9 @@ namespace Recodify.CRM.FEx.Core.Repositories
 						  </entity>
 						</fetch>";
 
-			return fetchService.Fetch(query)?.Entities.FirstOrDefault()?.Attributes["name"] as string ?? string.Empty;
+			var name = fetchService.Fetch(query)?.Entities.FirstOrDefault()?.Attributes["name"] as string ?? string.Empty;
+			trace.Trace(TraceEventType.Information, (int)EventId.GettingUniqueOrganizationName, "Organisation unique name retreived as: " + name);
+			return name;
 		}
 	}
 }

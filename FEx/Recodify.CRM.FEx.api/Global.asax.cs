@@ -15,5 +15,13 @@ namespace Recodify.CRM.FEx.api
 		{			
 			GlobalConfiguration.Configure(WebApiConfig.Register);			
 		}
+
+		protected void Application_BeginRequest(object sender, EventArgs e)
+		{
+			if (HttpContext.Current != null)
+			{
+				HttpContext.Current.Items.Add("RequestId", Guid.NewGuid());
+			}
+		}
 	}
 }

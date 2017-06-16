@@ -29,10 +29,10 @@ namespace Recodify.CRM.FEx.Core.Scheduling
 				return CalculateFromSchedule(frequency, day, time, lastRunStatus);
 			}
 
-			return BackoffAndRetry(lastRunStatus);
+			return BackoffAndRetry(lastRunStatus, depth);
 		}
 
-		private DateTimeOffset? BackoffAndRetry(RunStatus lastRunStatus)
+		private DateTimeOffset? BackoffAndRetry(RunStatus lastRunStatus, int depth)
 		{
 			trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput,
 				$"Last Run Status was: {lastRunStatus}. Backing off and retrying.");

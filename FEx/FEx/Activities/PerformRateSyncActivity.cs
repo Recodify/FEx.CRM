@@ -14,7 +14,7 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 		protected override void Execute(CodeActivityContext executionContext)
 		{
 			var tracingService = GetTraceService(executionContext);
-			var trace = new LoggingService(tracingService);
+			var trace = new DynamicsLoggingService(tracingService);
 
 			var workflowContext = GetWorkflowContext(executionContext, tracingService);
 			var organisationService = GetOrganizationService(workflowContext.UserId, executionContext);			
@@ -22,7 +22,7 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 
 			try
 			{						
-				var rateSyncJob = new RateSyncJob(new DynamicsRepository(organisationService), organisationService, config, trace);
+				var rateSyncJob = new RateSyncJob(new DynamicsRepository(organisationService, trace), organisationService, config, trace);
 				rateSyncJob.Execute();																
 			}
 			catch (Exception exp)

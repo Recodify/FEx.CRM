@@ -23,13 +23,13 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 		protected override void Execute(CodeActivityContext executionContext)
 		{
 			var tracingService = GetTraceService(executionContext);
-			var trace = new LoggingService(tracingService);
+			var trace = new DynamicsLoggingService(tracingService);
 			try
 			{						
 				var workflowContext = GetWorkflowContext(executionContext, tracingService);				
 				var organizationService = GetOrganizationService(workflowContext.UserId, executionContext);
 				var config = organizationService.GetFExConfiguration(workflowContext.PrimaryEntityId, ConfigAttribute.SchedulingAttributes);
-				var repo = new DynamicsRepository(organizationService);
+				var repo = new DynamicsRepository(organizationService, trace);
 
 				var nextRunDate = new CalculateNextRunDateJob(repo, config, trace, workflowContext.Depth).Execute();
 				CurrentRevision.Set(executionContext, config.Revision);				
