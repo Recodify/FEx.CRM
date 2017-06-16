@@ -13,7 +13,7 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 		DateTime LastSyncDate { get; set; }		
 		Frequency Frequency { get; }
 		int Revision { get; }
-		RunStatus LastRunStatus { get; }
+		RunStatus LastRunStatus { get; set; }
 		int Day { get; }
 		decimal Time { get; }
 		string RecodifyFExUrl { get; }

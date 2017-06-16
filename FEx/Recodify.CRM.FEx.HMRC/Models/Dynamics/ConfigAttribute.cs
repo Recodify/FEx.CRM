@@ -44,7 +44,8 @@
 			Day,
 			Time,
 			Frequency,
-			Revision
+			Revision,
+			LastRunStatus
 		};
 	}
 }

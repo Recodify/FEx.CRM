@@ -12,6 +12,8 @@ namespace Recodify.CRM.FEx.Core.Logging
 	{
 		private readonly ITracingService tracingService;
 
+		public bool HasWarnings { get; set; }
+
 		public LoggingService(ITracingService tracingService)
 		{
 			this.tracingService = tracingService;
@@ -19,6 +21,11 @@ namespace Recodify.CRM.FEx.Core.Logging
 
 		public void Trace(TraceEventType type, int id, string message)
 		{
+			if (type == TraceEventType.Warning)
+			{
+				HasWarnings = true;
+			}
+
 			tracingService.Trace($"{type.ToString().ToUpper()}: {message}");
 		}
 	}

@@ -54,6 +54,9 @@
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Xrm.Sdk.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="NodaTime, Version=2.0.3.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaTime.2.0.3\lib\net45\NodaTime.dll</HintPath>
+    </Reference>
     <Reference Include="Quartz, Version=2.5.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <HintPath>..\packages\Quartz.2.5.0\lib\net40\Quartz.dll</HintPath>
     </Reference>
@@ -87,7 +90,10 @@
     <Compile Include="Exchange\RateSyncer.cs" />
     <Compile Include="Extensions\IntegerExtensions.cs" />
     <Compile Include="Extensions\IOrganisationServiceExtensions.cs" />
+    <Compile Include="Extensions\RunStatusExtensions.cs" />
     <Compile Include="HmrcExchangeRateService.cs" />
+    <Compile Include="Jobs\CalculateNextRunDateJob.cs" />
+    <Compile Include="Jobs\JobCompleter.cs" />
     <Compile Include="Jobs\RateSyncJob.cs" />
     <Compile Include="Logging\EventId.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
@@ -104,6 +110,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DynamicsRepository.cs" />
     <Compile Include="Repositories\FetchService.cs" />
+    <Compile Include="Scheduling\DateCalculationResult.cs" />
     <Compile Include="Scheduling\DateCalculator.cs" />
     <Compile Include="Scheduling\Frequency.cs" />
   </ItemGroup>

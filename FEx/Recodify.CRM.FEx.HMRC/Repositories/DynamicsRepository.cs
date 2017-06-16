@@ -1,25 +1,34 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.Xrm.Sdk;
+using Recodify.CRM.FEx.Core.Models.Dynamics;
 
 namespace Recodify.CRM.FEx.Core.Repositories
 {
 	public class DynamicsRepository
 	{
-		private readonly IOrganizationService organizationService;
+		private readonly IOrganizationService organisationService;
 		private readonly FetchService fetchService;
 
-		public DynamicsRepository(IOrganizationService organizationService)
+		public DynamicsRepository(IOrganizationService organisationService)
 		{
-			this.organizationService = organizationService;
-			this.fetchService = new FetchService(organizationService);
+			this.organisationService = organisationService;
+			this.fetchService = new FetchService(organisationService);
 		}
 
 		public virtual void SaveCurrencies(EntityCollection currencies)
 		{
 			foreach (var cur in currencies.Entities)
 			{
-				organizationService.Update(cur);				
+				organisationService.Update(cur);				
 			}			
+		}
+
+		public virtual void SaveNextRunDate(IFExConfig config, DateTime nextRunDate)
+		{
+			config.NextRunDate = nextRunDate;
+			config.RemoveNonPersistableAttributes();
+			organisationService.Update(config.Entity);
 		}
 
 		public EntityCollection GetCurrencies()

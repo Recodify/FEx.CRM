@@ -6,8 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 using Recodify.CRM.FEx.Core.Exchange;
+using Recodify.CRM.FEx.Core.Extensions;
 using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
+using Recodify.CRM.FEx.Core.Monitoring;
 using Recodify.CRM.FEx.Core.Repositories;
 
 namespace Recodify.CRM.FEx.Core.Jobs
@@ -33,6 +35,8 @@ namespace Recodify.CRM.FEx.Core.Jobs
 
 		public void Execute()
 		{
+			trace.Trace(TraceEventType.Information, (int)EventId.StartingRateSync, "Syncing Rates");
+
 			trace.Trace(TraceEventType.Information, (int)EventId.GettingRatesFromApi, "Getting Rates from API");
 			var rates = rateService.GetRates(GetOrganisationUniqueName());
 
@@ -45,7 +49,7 @@ namespace Recodify.CRM.FEx.Core.Jobs
 			trace.Trace(TraceEventType.Information, (int)EventId.SavingCurrencies, "Saving updated currencies to CRM");
 			repo.SaveCurrencies(currencies);
 
-			SetLastSyncDate();
+			new JobCompleter(organisationService, config, trace).Complete(trace.HasWarnings ? RunStatus.Warning : RunStatus.Success);
 		}
 
 		private string GetOrganisationUniqueName()
@@ -53,15 +57,9 @@ namespace Recodify.CRM.FEx.Core.Jobs
 			var name = new DynamicsRepository(organisationService).GetUniqueName();
 			trace.Trace(TraceEventType.Information, (int)EventId.GettingUniqueOrganizationName, "Organisation unique name retreived as: " + name);
 			return name;
-		}
+		}		
 
-		private void SetLastSyncDate()
-		{
-			trace.Trace(TraceEventType.Information,(int)EventId.SavingLastSyncDate, "Set Last Sync Date to: " + config.LastSyncDate);
-			config.LastSyncDate = DateTime.UtcNow;
-			config.RemoveNonPersistableAttributes();
-			organisationService.Update(config.Entity);
-		}
+		
 	}
 
 }

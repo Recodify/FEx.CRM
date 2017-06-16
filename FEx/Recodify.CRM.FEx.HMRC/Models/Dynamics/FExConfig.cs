@@ -48,7 +48,11 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 
 		public int Revision => GetAttributeValue<int>(ConfigAttribute.Revision);
 
-		public RunStatus LastRunStatus => (RunStatus)GetAttributeValue<OptionSetValue>(ConfigAttribute.LastRunStatus).Value;
+		public RunStatus LastRunStatus
+		{
+			get { return (RunStatus) GetAttributeValue<OptionSetValue>(ConfigAttribute.LastRunStatus).Value; }
+			set { SetAttributeAttributeValue(ConfigAttribute.LastRunStatus, () => new OptionSetValue((int)value)); }
+		}
 
 		public Frequency Frequency => (Frequency) (GetAttributeValue<OptionSetValue>(ConfigAttribute.Frequency)).Value;
 
@@ -73,13 +77,18 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 
 		private void SetAttributeValue(string attributeName, object value)
 		{
+			SetAttributeAttributeValue(attributeName, () => value);
+		}
+
+		private void SetAttributeAttributeValue(string attributeName, Func<object> valueBuilder)
+		{
 			if (entity.Attributes.ContainsKey(attributeName))
 			{
-				entity.Attributes[attributeName] = value;
+				entity.Attributes[attributeName] = valueBuilder();
 			}
 			else
 			{
-				entity.Attributes.Add(attributeName, value);
+				entity.Attributes.Add(attributeName, valueBuilder());
 			}
 		}
 
