@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Recodify.CRM.FEx.Core.Logging
+﻿namespace Recodify.CRM.FEx.Core.Logging
 {
 	public enum EventId
 	{
@@ -12,7 +6,7 @@ namespace Recodify.CRM.FEx.Core.Logging
 		NextRunDateOutput = 13001,
 
 		// Information
-		StartingNextRunDateCalculation = 1101,		
+		StartingNextRunDateCalculation = 1101,
 		CompletedNextRunDateCalculationSuccess = 1195,
 
 		StartingRateSync = 1201,

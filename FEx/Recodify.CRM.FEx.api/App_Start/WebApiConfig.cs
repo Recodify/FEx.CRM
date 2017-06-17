@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using Recodify.Logging.Common;
 using Recodify.Logging.Trace;
 using Recodify.Logging.Trace.Sanitisation;
 using Recodify.Logging.WebApi;
-using HttpContext = System.Web.HttpContext;
 
 namespace Recodify.CRM.FEx.api
 {
@@ -22,9 +19,9 @@ namespace Recodify.CRM.FEx.api
 			config.MapHttpAttributeRoutes();
 			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 			config.Routes.MapHttpRoute(
-				name: "DefaultApi",
-				routeTemplate: "api/{controller}/{id}",
-				defaults: new { id = RouteParameter.Optional }
+				"DefaultApi",
+				"api/{controller}/{id}",
+				new {id = RouteParameter.Optional}
 			);
 
 			AddLoggingHandlers(config);
@@ -36,7 +33,7 @@ namespace Recodify.CRM.FEx.api
 			{
 				var requestTraceSource = new SanitisedTraceSource("Request", new WebDataEnricher(), new Sanitiser());
 				var responseTraceSource = new SanitisedTraceSource("Response", new WebDataEnricher(), new Sanitiser());
-				var logHandler = new LogHandler(requestTraceSource, responseTraceSource, new Recodify.Logging.Common.HttpContext(), new Options());
+				var logHandler = new LogHandler(requestTraceSource, responseTraceSource, new HttpContext(), new Options());
 				config.MessageHandlers.Add(logHandler);
 			}
 		}

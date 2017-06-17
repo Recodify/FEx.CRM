@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.Net;
 using Recodify.CRM.FEx.Core.Exceptions;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Rates.Models.Generic;
@@ -22,7 +21,7 @@ namespace Recodify.CRM.FEx.Core.Exchange
 			var request = new RestRequest(BuildResourceUrl(crmUniqueName), Method.GET);
 			var response = client.Execute<ExchangeRateCollection>(request);
 
-			if (response.StatusCode != System.Net.HttpStatusCode.OK)
+			if (response.StatusCode != HttpStatusCode.OK)
 			{
 				var message = response?.Data?.Message;
 				throw new RateSyncException(
@@ -36,5 +35,5 @@ namespace Recodify.CRM.FEx.Core.Exchange
 		{
 			return $"api/rates?rateSource={config.DataSource}&id={crmUniqueName}";
 		}
-	}	
+	}
 }

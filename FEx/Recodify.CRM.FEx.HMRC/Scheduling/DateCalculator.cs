@@ -9,25 +9,23 @@ using Recodify.CRM.FEx.Core.Monitoring;
 namespace Recodify.CRM.FEx.Core.Scheduling
 {
 	public class DateCalculator
-	{ 
-		private readonly DateTimeOffset currentDate;		
-		private readonly ILoggingService trace;
+	{
 		public const int BackOffInterval = 10;
 		public const int MaxBackOffInterval = 65;
 		public const int MaxDepth = 7;
+		private readonly DateTimeOffset currentDate;
+		private readonly ILoggingService trace;
 
 		public DateCalculator(DateTimeOffset currentDate, ILoggingService trace)
 		{
-			this.currentDate = currentDate;			
+			this.currentDate = currentDate;
 			this.trace = trace;
 		}
 
 		public DateTimeOffset? Calculate(Frequency frequency, int day, decimal time, RunStatus lastRunStatus, int depth)
 		{
 			if (lastRunStatus != RunStatus.Error)
-			{
 				return CalculateFromSchedule(frequency, day, time, lastRunStatus);
-			}
 
 			return BackoffAndRetry(lastRunStatus, depth);
 		}

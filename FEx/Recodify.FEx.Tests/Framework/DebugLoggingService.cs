@@ -1,25 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Recodify.CRM.FEx.Core.Logging;
 
 namespace Recodify.CRM.FEx.Tests.Framework
 {
 	public class DebugLoggingService : ILoggingService
 	{
-		public List<string> Logs { get;}
-
 		public DebugLoggingService()
 		{
 			Logs = new List<string>();
 		}
 
+		public List<string> Logs { get; }
+
 		public void Trace(TraceEventType type, int id, params object[] message)
 		{
-			var msg = $"{type.ToString().ToUpper()}({id}): {message.Aggregate((c, n) => c + "," + n)}";
+			var formattedMessage = message.Select(x => x.ToString()).Aggregate((c, n) => c + "," + n);
+			var msg = $"{type.ToString().ToUpper()}({id}): {formattedMessage}";
 			Logs.Add(msg);
 			Debug.WriteLine(msg);
 		}

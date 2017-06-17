@@ -1,6 +1,4 @@
-﻿using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Tooling.Connector;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Repositories;
@@ -32,6 +30,6 @@ namespace Recodify.CRM.FEx.Tests.Integration.Dynamics
 		{
 			var result = repo.GetUniqueName();
 			Assert.That(result, Is.EqualTo("ingtysandbox"));
-		}		
+		}
 	}
 }

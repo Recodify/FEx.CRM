@@ -32,7 +32,7 @@ namespace Recodify.CRM.FEx.Core.Repositories
 					Query = new FetchExpression(xml)
 				};
 
-				var returnCollection = ((RetrieveMultipleResponse)service.Execute(fetchRequest1)).EntityCollection;
+				var returnCollection = ((RetrieveMultipleResponse) service.Execute(fetchRequest1)).EntityCollection;
 
 				result.Entities.AddRange(returnCollection.Entities);
 				if (returnCollection.MoreRecords)

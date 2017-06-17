@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Recodify.CRM.FEx.Core.Exceptions;
 using Recodify.CRM.FEx.Core.Exchange;
-using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Tests.Framework;
 
 namespace Recodify.CRM.FEx.Tests.Integration.Core
@@ -26,8 +20,8 @@ namespace Recodify.CRM.FEx.Tests.Integration.Core
 		[Test]
 		public void WhenDataSourceInvalid_ThrowsRatesSyncException()
 		{
-			var rateService = new RateService(new MockFExConfig { DataSource = RateDataSource.Unset });
-			Assert.Throws<RateSyncException>(() => rateService.GetRates("blah"));			
+			var rateService = new RateService(new MockFExConfig {DataSource = RateDataSource.Unset});
+			Assert.Throws<RateSyncException>(() => rateService.GetRates("blah"));
 		}
 	}
 }

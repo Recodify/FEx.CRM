@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Recodify.CRM.FEx.Tests.Framework
+﻿namespace Recodify.CRM.FEx.Tests.Framework
 {
-	public class TestDynamicsConfiguration 
+	public class TestDynamicsConfiguration
 	{
 		public string Username
 		{

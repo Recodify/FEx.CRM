@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Monitoring;
 
@@ -29,11 +24,11 @@ namespace Recodify.CRM.FEx.Core.Extensions
 			switch (runStatus)
 			{
 				case RunStatus.Success:
-					return (int)EventId.CompletedRateSyncSuccess;
+					return (int) EventId.CompletedRateSyncSuccess;
 				case RunStatus.Warning:
-					return (int)EventId.CompletedRateSyncWarning;
+					return (int) EventId.CompletedRateSyncWarning;
 				default:
-					return (int)EventId.CompletedRateSyncError;
+					return (int) EventId.CompletedRateSyncError;
 			}
 		}
 	}

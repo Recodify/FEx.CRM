@@ -5,7 +5,6 @@ using Recodify.CRM.FEx.Rates.Models.Generic;
 
 namespace Recodify.CRM.FEx.Rates.Models.HMRC
 {
-
 	[XmlRoot("exchangeRateMonthList")]
 	public class HmrcExchangeRateCollection
 	{

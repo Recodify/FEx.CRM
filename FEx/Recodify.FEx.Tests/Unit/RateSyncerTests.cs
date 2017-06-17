@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 using Moq;
 using NUnit.Framework;
@@ -22,7 +20,7 @@ namespace Recodify.CRM.FEx.Tests.Unit
 		{
 			var loggingService = new Mock<ILoggingService>();
 			var baseCurrencyId = Guid.NewGuid();
-			var rateSyncer = new RateSyncer(new MockFExConfig { BaseCurrencyId = baseCurrencyId }, loggingService.Object);
+			var rateSyncer = new RateSyncer(new MockFExConfig {BaseCurrencyId = baseCurrencyId}, loggingService.Object);
 
 			var currencies = CreateCurrencyCollection(baseCurrencyId);
 
@@ -30,7 +28,7 @@ namespace Recodify.CRM.FEx.Tests.Unit
 			{
 				Items = new List<ExchangeRate>
 				{
-					new ExchangeRate {CurrencyCode = CurrencyCode.GBP, RateNew = 1},					
+					new ExchangeRate {CurrencyCode = CurrencyCode.GBP, RateNew = 1},
 					new ExchangeRate {CurrencyCode = CurrencyCode.USD, RateNew = 1.4M}
 				}
 			};
@@ -46,7 +44,8 @@ namespace Recodify.CRM.FEx.Tests.Unit
 		public void ShouldUpdateExchangeRatesForPassedCurrencies()
 		{
 			var baseCurrencyId = Guid.NewGuid();
-			var rateSyncer = new RateSyncer(new MockFExConfig{ BaseCurrencyId = baseCurrencyId}, new Mock<ILoggingService>().Object);			
+			var rateSyncer = new RateSyncer(new MockFExConfig {BaseCurrencyId = baseCurrencyId},
+				new Mock<ILoggingService>().Object);
 			var currencies = CreateCurrencyCollection(baseCurrencyId);
 
 			var rates = new ExchangeRateCollection
@@ -61,17 +60,18 @@ namespace Recodify.CRM.FEx.Tests.Unit
 
 			var result = rateSyncer.Sync(currencies, rates);
 
-			var eur = result.Entities.Single(x => ((string)x.Attributes[CurrencyAttribute.CurrencyCode]) == CurrencyCode.EUR);
-			var usd = result.Entities.Single(x => ((string)x.Attributes[CurrencyAttribute.CurrencyCode]) == CurrencyCode.USD);
-			Assert.That((decimal)eur.Attributes[CurrencyAttribute.ExchangeRate], Is.EqualTo(1.2M));
-			Assert.That((decimal)usd.Attributes[CurrencyAttribute.ExchangeRate], Is.EqualTo(1.4M));
+			var eur = result.Entities.Single(x => (string) x.Attributes[CurrencyAttribute.CurrencyCode] == CurrencyCode.EUR);
+			var usd = result.Entities.Single(x => (string) x.Attributes[CurrencyAttribute.CurrencyCode] == CurrencyCode.USD);
+			Assert.That((decimal) eur.Attributes[CurrencyAttribute.ExchangeRate], Is.EqualTo(1.2M));
+			Assert.That((decimal) usd.Attributes[CurrencyAttribute.ExchangeRate], Is.EqualTo(1.4M));
 		}
 
 		[Test]
 		public void ShouldNotReturnBaseCurrencies()
 		{
 			var baseCurencyId = Guid.NewGuid();
-			var rateSyncer = new RateSyncer(new MockFExConfig { BaseCurrencyId = baseCurencyId }, new Mock<ILoggingService>().Object);
+			var rateSyncer = new RateSyncer(new MockFExConfig {BaseCurrencyId = baseCurencyId},
+				new Mock<ILoggingService>().Object);
 
 			var currencies = CreateCurrencyCollection(baseCurencyId);
 
@@ -87,7 +87,8 @@ namespace Recodify.CRM.FEx.Tests.Unit
 
 			var result = rateSyncer.Sync(currencies, rates);
 
-			var gbp = result.Entities.SingleOrDefault(x => ((string)x.Attributes[CurrencyAttribute.CurrencyCode]) == CurrencyCode.GBP);
+			var gbp =
+				result.Entities.SingleOrDefault(x => (string) x.Attributes[CurrencyAttribute.CurrencyCode] == CurrencyCode.GBP);
 			Assert.That(gbp, Is.Null);
 		}
 

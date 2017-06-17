@@ -35,7 +35,7 @@
 			LastRunDate,
 			NextRun,
 			DataSource,
-			BaseCurrencyId,	
+			BaseCurrencyId,
 			LastRunStatus
 		};
 

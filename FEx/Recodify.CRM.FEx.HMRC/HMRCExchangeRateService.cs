@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Recodify.CRM.FEx.Rates.Models.Generic;
 using Recodify.CRM.FEx.Rates.Models.HMRC;
@@ -18,7 +13,7 @@ namespace Recodify.CRM.FEx.Rates
 	}
 
 	public class HmrcExchangeRateService : IExchangeRateService
-	{		
+	{
 		public ExchangeRateCollection GetRates(string urlFormat)
 		{
 			var formattedDateString = GetDateString();

@@ -10,7 +10,7 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 	{
 		DateTimeOffset NextRunDate { get; set; }
 		RateDataSource DataSource { get; }
-		DateTime LastSyncDate { get; set; }		
+		DateTime LastSyncDate { get; set; }
 		Frequency Frequency { get; }
 		int Revision { get; }
 		RunStatus LastRunStatus { get; set; }

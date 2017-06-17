@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using Recodify.CRM.FEx.Core.Exceptions;
 using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Core.Models.Generic;
-using Recodify.CRM.FEx.Rates.Models.Generic;
 using RestSharp;
 
 namespace Recodify.CRM.FEx.Core.Scheduling
@@ -32,7 +28,7 @@ namespace Recodify.CRM.FEx.Core.Scheduling
 			trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput, $"Making Scheduling Request to: {url}");
 			var response = client.Execute<SchedulingResult>(request);
 
-			if (response.StatusCode != System.Net.HttpStatusCode.OK)
+			if (response.StatusCode != HttpStatusCode.OK)
 			{
 				var message = response?.Data?.Message;
 				throw new SchedulingException(
@@ -44,7 +40,8 @@ namespace Recodify.CRM.FEx.Core.Scheduling
 
 		private string BuildResourceUrl(string crmUniqueName, int depth)
 		{
-			return $"api/schedule?id={crmUniqueName}&frequency={config.Frequency}&day={config.Day}&time={config.Time}&lastRunStatus={config.LastRunStatus}&depth={depth}";
+			return
+				$"api/schedule?id={crmUniqueName}&frequency={config.Frequency}&day={config.Day}&time={config.Time}&lastRunStatus={config.LastRunStatus}&depth={depth}";
 		}
 	}
 }

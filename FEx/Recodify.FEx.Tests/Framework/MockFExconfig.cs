@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 using Recodify.CRM.FEx.Core.Exchange;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
@@ -16,19 +12,25 @@ namespace Recodify.CRM.FEx.Tests.Framework
 	{
 		public DateTimeOffset NextRunDate { get; set; }
 		public RateDataSource DataSource { get; set; }
-		public DateTime LastSyncDate { get; set; }		
+		public DateTime LastSyncDate { get; set; }
 		public Frequency Frequency { get; set; }
 		public int Day { get; set; }
 		public decimal Time { get; set; }
-		public string RecodifyFExUrl { get { return ConfigurationManager.AppSettings["RecodifyFExUrl"]; } }
+
+		public string RecodifyFExUrl
+		{
+			get { return ConfigurationManager.AppSettings["RecodifyFExUrl"]; }
+		}
+
 		public Guid BaseCurrencyId { get; set; }
 		public int Revision { get; set; }
 		public RunStatus LastRunStatus { get; set; }
+
 		public void RemoveNonPersistableAttributes()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Entity Entity { get; }		
+		public Entity Entity { get; }
 	}
 }

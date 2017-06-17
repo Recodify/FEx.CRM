@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using Microsoft.Xrm.Sdk;
+using Recodify.CRM.FEx.Core.Extensions;
 using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 
@@ -9,23 +9,21 @@ namespace Recodify.CRM.FEx.Core.Repositories
 {
 	public class DynamicsRepository
 	{
+		private readonly FetchService fetchService;
 		private readonly IOrganizationService organisationService;
 		private readonly ILoggingService trace;
-		private readonly FetchService fetchService;
 
 		public DynamicsRepository(IOrganizationService organisationService, ILoggingService trace)
 		{
 			this.organisationService = organisationService;
 			this.trace = trace;
-			this.fetchService = new FetchService(organisationService);
+			fetchService = new FetchService(organisationService);
 		}
 
 		public virtual void SaveCurrencies(EntityCollection currencies)
 		{
 			foreach (var cur in currencies.Entities)
-			{
-				organisationService.Update(cur);				
-			}			
+				organisationService.Update(cur);
 		}
 
 		public virtual void SaveNextRunDate(IFExConfig config, DateTime nextRunDate)
@@ -51,14 +49,9 @@ namespace Recodify.CRM.FEx.Core.Repositories
 
 		public string GetUniqueName()
 		{
-			var query = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
-						  <entity name='organization'>    
-							<order attribute='name' descending='false' />
-						  </entity>
-						</fetch>";
-
-			var name = fetchService.Fetch(query)?.Entities.FirstOrDefault()?.Attributes["name"] as string ?? string.Empty;
-			trace.Trace(TraceEventType.Information, (int)EventId.GettingUniqueOrganizationName, "Organisation unique name retreived as: " + name);
+			var name = organisationService.GetUniqueOrganisationName();
+			trace.Trace(TraceEventType.Information, (int) EventId.GettingUniqueOrganizationName,
+				"Organisation unique name retreived as: " + name);
 			return name;
 		}
 	}

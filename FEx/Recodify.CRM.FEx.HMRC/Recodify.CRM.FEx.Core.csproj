@@ -36,6 +36,9 @@
     <AssemblyOriginatorKeyFile>Recodify.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Collinson.Messaging.RabbitMq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.15\lib\net40\Collinson.Messaging.RabbitMq.dll</HintPath>
+    </Reference>
     <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
@@ -50,6 +53,9 @@
       <HintPath>..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xrm.Sdk, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Xrm.Sdk.dll</HintPath>
       <Private>False</Private>
@@ -57,8 +63,17 @@
     <Reference Include="NodaTime, Version=2.0.3.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
       <HintPath>..\packages\NodaTime.2.0.3\lib\net45\NodaTime.dll</HintPath>
     </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Quartz, Version=2.5.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <HintPath>..\packages\Quartz.2.5.0\lib\net40\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="Recodify.Logging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.15\lib\net40\Recodify.Logging.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Recodify.Logging.Dynamics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.15\lib\net40\Recodify.Logging.Dynamics.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
@@ -84,6 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\PluginConfiguration.cs" />
     <Compile Include="Exceptions\RateSyncException.cs" />
     <Compile Include="Exceptions\SchedulingException.cs" />
     <Compile Include="Exchange\RateDataSource.cs" />
@@ -96,9 +112,11 @@
     <Compile Include="Jobs\CalculateNextRunDateJob.cs" />
     <Compile Include="Jobs\JobCompleter.cs" />
     <Compile Include="Jobs\RateSyncJob.cs" />
+    <Compile Include="Logging\DynamicsLoggingService.cs" />
     <Compile Include="Logging\EventId.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
-    <Compile Include="Logging\LoggingService.cs" />
+    <Compile Include="Logging\GenericLoggingService.cs" />
+    <Compile Include="Logging\NullLoggingService.cs" />
     <Compile Include="Models\Dynamics\ConfigAttribute.cs" />
     <Compile Include="Models\Dynamics\CurrencyAttribute.cs" />
     <Compile Include="Models\Dynamics\FExConfig.cs" />

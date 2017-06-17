@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 using Moq;
 using Recodify.CRM.FEx.Core.Logging;
@@ -16,9 +12,9 @@ namespace Recodify.CRM.FEx.Tests.Framework
 		public int SaveCurrenciesCallCount;
 		public int SaveNextRunDateCallCount;
 
-		public AssertableDynamicsRepo(IOrganizationService organisationService) : base(organisationService, new Mock<ILoggingService>().Object)
+		public AssertableDynamicsRepo(IOrganizationService organisationService)
+			: base(organisationService, new Mock<ILoggingService>().Object)
 		{
-			
 		}
 
 		public override void SaveNextRunDate(IFExConfig config, DateTime nextRunDate)
@@ -28,7 +24,7 @@ namespace Recodify.CRM.FEx.Tests.Framework
 		}
 
 		public override void SaveCurrencies(EntityCollection currencies)
-		{			
+		{
 			base.SaveCurrencies(currencies);
 			SaveCurrenciesCallCount++;
 		}
