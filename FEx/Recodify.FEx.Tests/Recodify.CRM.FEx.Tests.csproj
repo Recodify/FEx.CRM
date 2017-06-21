@@ -34,7 +34,7 @@
       <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Collinson.Messaging.RabbitMq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.17\lib\net40\Collinson.Messaging.RabbitMq.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.21\lib\net40\Collinson.Messaging.RabbitMq.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
@@ -77,10 +77,10 @@
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="Recodify.Logging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.17\lib\net40\Recodify.Logging.Common.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.21\lib\net40\Recodify.Logging.Common.dll</HintPath>
     </Reference>
     <Reference Include="Recodify.Logging.Dynamics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.17\lib\net40\Recodify.Logging.Dynamics.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.21\lib\net40\Recodify.Logging.Dynamics.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
