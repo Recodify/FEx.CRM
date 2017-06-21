@@ -11,14 +11,10 @@ namespace Recodify.CRM.FEx.Core.Exchange
 {
 	public class RateService
 	{
-		private readonly IFExConfig config;
-		private readonly ILoggingService trace;		
 		private readonly ApiClient api;
 
 		public RateService(IFExConfig config, ILoggingService trace, Guid correlationId)
-		{
-			this.config = config;
-			this.trace = trace;			
+		{					
 			api = new ApiClient(config, trace, correlationId);
 		}
 

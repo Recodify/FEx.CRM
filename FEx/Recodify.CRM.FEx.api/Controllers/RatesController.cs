@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Recodify.CRM.FEx.Core.Exchange;
+using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Rates;
 using Recodify.CRM.FEx.Rates.Models.Generic;
 
@@ -12,16 +13,20 @@ namespace Recodify.CRM.FEx.api.Controllers
 	public class RatesController : ApiController
 	{
 		// GET api/rates/blah
-		public HttpResponseMessage Get(string id, string rateSource)
+		public HttpResponseMessage Get(string id, string rateSource, string baseCurrencyCode)
 		{
-			if (rateSource.Equals(RateDataSource.Fixer.ToString(), StringComparison.InvariantCultureIgnoreCase))
-			{
-				return BuildSuccessResponse(new ExchangeRateCollection());
-			}
+			var trace = new GenericLoggingService("Details");
+
 			if (rateSource.Equals(RateDataSource.Hmrc.ToString(), StringComparison.InvariantCultureIgnoreCase))
 			{
-				var service = new HmrcExchangeRateService();
-				var rates = service.GetRates(ConfigurationManager.AppSettings["exchangerate:url"]);
+				var service = new HmrcExchangeRateService(trace);
+				var rates = service.GetRates(ConfigurationManager.AppSettings["hmrcexchangerate:url"], baseCurrencyCode);
+				return BuildSuccessResponse(rates);
+			}
+			if (rateSource.Equals(RateDataSource.Fixer.ToString(), StringComparison.InvariantCultureIgnoreCase))
+			{
+				var service = new FixerExchangeRateService(trace);
+				var rates = service.GetRates(ConfigurationManager.AppSettings["fixerexchangerate:url"], baseCurrencyCode);
 				return BuildSuccessResponse(rates);
 			}
 

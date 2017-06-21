@@ -15,10 +15,10 @@ namespace Recodify.CRM.FEx.api.Controllers
 		public HttpResponseMessage Get(string id, Frequency frequency, int day, decimal time, RunStatus lastRunStatus,
 			int depth)
 		{
-			var loggingService = new GenericLoggingService("Details");
+			var trace = new GenericLoggingService("Details");
 			try
 			{
-				var calculator = new DateCalculator(DateTime.UtcNow, loggingService);
+				var calculator = new DateCalculator(DateTime.UtcNow, trace);
 				var nextRunDate = calculator.Calculate(frequency, day, time, lastRunStatus, depth);
 
 				if (!nextRunDate.HasValue)
@@ -33,7 +33,7 @@ namespace Recodify.CRM.FEx.api.Controllers
 			catch (Exception exp)
 			{
 				var message = $"Error calculating next run date. {exp.Message}";
-				loggingService.Trace(TraceEventType.Error, (int) EventId.ScheduleApiError, message, exp);
+				trace.Trace(TraceEventType.Error, (int) EventId.ScheduleApiError, message, exp);
 				return Request.CreateResponse(HttpStatusCode.InternalServerError, new SchedulingResult {Message = message});
 			}
 		}

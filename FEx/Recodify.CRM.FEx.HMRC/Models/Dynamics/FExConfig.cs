@@ -6,14 +6,18 @@ using Microsoft.Xrm.Sdk;
 using Recodify.CRM.FEx.Core.Config;
 using Recodify.CRM.FEx.Core.Exchange;
 using Recodify.CRM.FEx.Core.Monitoring;
+using Recodify.CRM.FEx.Core.Repositories;
 using Recodify.CRM.FEx.Core.Scheduling;
 
 namespace Recodify.CRM.FEx.Core.Models.Dynamics
 {
 	public class FExConfig : IFExConfig
 	{
-		public FExConfig(Entity entity)
+		private readonly DynamicsRepository dynamicsRepository;
+
+		public FExConfig(Entity entity, DynamicsRepository dynamicsRepository)
 		{
+			this.dynamicsRepository = dynamicsRepository;
 			Entity = entity;
 		}
 
@@ -73,6 +77,8 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 			=> (RateDataSource) GetAttributeValue<OptionSetValue>(ConfigAttribute.DataSource).Value;
 
 		public Guid BaseCurrencyId => GetAttributeValue<EntityReference>(ConfigAttribute.BaseCurrencyId).Id;
+
+		public string BaseCurrencyCode => dynamicsRepository.GetBaseCurrencyCode(BaseCurrencyId);
 
 		public int Day => GetAttributeValue<int>(ConfigAttribute.Day);
 

@@ -19,7 +19,7 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 			var organisationService = GetOrganizationService(workflowContext.UserId, executionContext);
 			var trace = new DynamicsLoggingService(tracingService, organisationService.GetUniqueOrganisationName(),
 				workflowContext.CorrelationId);
-			var config = organisationService.GetFExConfiguration(workflowContext.PrimaryEntityId, ConfigAttribute.RunAttributes);
+			var config = organisationService.GetFExConfiguration(workflowContext.PrimaryEntityId, ConfigAttribute.RunAttributes, trace);
 
 			try
 			{

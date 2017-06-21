@@ -1,7 +1,8 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Recodify.CRM.FEx.Rates.Models.HMRC
-{
+{	
 	public class HmrcExchangeRate
 	{
 		[XmlElement("countryName")]

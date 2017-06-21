@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using Recodify.CRM.FEx.Core.Extensions;
 using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
@@ -31,6 +32,13 @@ namespace Recodify.CRM.FEx.Core.Repositories
 			config.NextRunDate = nextRunDate;
 			config.RemoveNonPersistableAttributes();
 			organisationService.Update(config.Entity);
+		}
+
+		public string GetBaseCurrencyCode(Guid currencyId)
+		{
+			// TODO add integration test and error logic for this. 
+			var entity =  organisationService.Retrieve(CurrencyAttribute.EntityName, currencyId, new ColumnSet(CurrencyAttribute.CurrencyCode));
+			return entity.Attributes[CurrencyAttribute.CurrencyCode] as string;
 		}
 
 		public EntityCollection GetCurrencies()

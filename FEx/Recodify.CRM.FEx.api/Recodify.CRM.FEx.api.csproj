@@ -52,7 +52,7 @@
       <HintPath>..\packages\Castle.Windsor.3.2.1\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Collinson.Messaging.RabbitMq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.0.0.21\lib\net40\Collinson.Messaging.RabbitMq.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.0.0.23\lib\net40\Collinson.Messaging.RabbitMq.dll</HintPath>
     </Reference>
     <Reference Include="EasyNetQ, Version=0.34.0.279, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EasyNetQ.0.34.0.279\lib\net40\EasyNetQ.dll</HintPath>
@@ -86,19 +86,19 @@
       <HintPath>..\packages\RabbitMQ.Client.3.3.2\lib\net30\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="Recodify.Logging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.0.0.21\lib\net40\Recodify.Logging.Common.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.0.0.23\lib\net40\Recodify.Logging.Common.dll</HintPath>
     </Reference>
     <Reference Include="Recodify.Logging.Listeners, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.0.0.21\lib\net40\Recodify.Logging.Listeners.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.0.0.23\lib\net40\Recodify.Logging.Listeners.dll</HintPath>
     </Reference>
     <Reference Include="Recodify.Logging.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.0.0.21\lib\net40\Recodify.Logging.Mvc.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.0.0.23\lib\net40\Recodify.Logging.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Recodify.Logging.Trace, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.0.0.21\lib\net40\Recodify.Logging.Trace.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.0.0.23\lib\net40\Recodify.Logging.Trace.dll</HintPath>
     </Reference>
     <Reference Include="Recodify.Logging.WebApi, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.0.0.21\lib\net40\Recodify.Logging.WebApi.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.0.0.23\lib\net40\Recodify.Logging.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>

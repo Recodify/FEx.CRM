@@ -15,9 +15,10 @@ namespace Recodify.CRM.FEx.Tests.Integration.Core
 		[Test]
 		public void CanSyncRates()
 		{
+			var trace = new Mock<ILoggingService>().Object;
 			var service = new OrganisationServiceFactory().Create();
 			var config = service.GetFExConfiguration(new Guid("dcdda8b0-a34b-e711-811a-e0071b65dea1"),
-				ConfigAttribute.RunAttributes);
+				ConfigAttribute.RunAttributes, trace);
 			var repo = new AssertableDynamicsRepo(service);
 
 			var job = new RateSyncJob(repo, service, config, new Mock<ILoggingService>().Object, Guid.NewGuid());

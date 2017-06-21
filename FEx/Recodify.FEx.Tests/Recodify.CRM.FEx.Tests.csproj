@@ -34,7 +34,7 @@
       <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Collinson.Messaging.RabbitMq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.21\lib\net40\Collinson.Messaging.RabbitMq.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.23\lib\net40\Collinson.Messaging.RabbitMq.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
@@ -66,6 +66,13 @@
     <Reference Include="Moq, Version=4.7.25.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.7.25\lib\net45\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="MvcRouteTester, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcRouteTester.1.2.1\lib\net40\MvcRouteTester.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NodaTime, Version=2.0.3.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
       <HintPath>..\packages\NodaTime.2.0.3\lib\net45\NodaTime.dll</HintPath>
     </Reference>
@@ -77,10 +84,10 @@
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="Recodify.Logging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.21\lib\net40\Recodify.Logging.Common.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.23\lib\net40\Recodify.Logging.Common.dll</HintPath>
     </Reference>
     <Reference Include="Recodify.Logging.Dynamics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.21\lib\net40\Recodify.Logging.Dynamics.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.23\lib\net40\Recodify.Logging.Dynamics.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
@@ -93,11 +100,17 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Workflow.Activities" />
     <Reference Include="System.Workflow.ComponentModel" />
@@ -121,6 +134,8 @@
     <Compile Include="Integration\Core\RateSyncJobTests.cs" />
     <Compile Include="Integration\Core\SchedulingServiceTests.cs" />
     <Compile Include="Integration\Dynamics\DynamicsRepositoryTests.cs" />
+    <Compile Include="Unit\Api\RouteTests\RateRouteTests.cs" />
+    <Compile Include="Unit\Api\RouteTests\SchedulingRouteTests.cs" />
     <Compile Include="Unit\Core\Scheduling\DateCalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\Core\Exchange\RateSyncerTests.cs" />
@@ -131,6 +146,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Recodify.CRM.FEx.api\Recodify.CRM.FEx.api.csproj">
+      <Project>{3E1466EB-A464-4AED-9CC0-D4BA1C11457D}</Project>
+      <Name>Recodify.CRM.FEx.api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Recodify.CRM.FEx.HMRC\Recodify.CRM.FEx.Core.csproj">
       <Project>{A93D162A-6ACE-4156-9377-7261783C35C6}</Project>
       <Name>Recodify.CRM.FEx.Core</Name>

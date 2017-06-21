@@ -3,6 +3,7 @@ using System.Activities;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Core.Repositories;
 
@@ -22,7 +23,7 @@ namespace Recodify.CRM.FEx.Core.Extensions
 		}
 
 		public static FExConfig GetFExConfiguration(this IOrganizationService organisationService, Guid configId,
-			string[] attributes)
+			string[] attributes, ILoggingService trace)
 		{
 			var configEntity = organisationService.Retrieve(
 				ConfigAttribute.ConfigEntityName,
@@ -32,7 +33,7 @@ namespace Recodify.CRM.FEx.Core.Extensions
 			if (configEntity == null)
 				throw new InvalidWorkflowException("Failed to retrieve FExConfig Entity.");
 
-			return new FExConfig(configEntity);
+			return new FExConfig(configEntity, new DynamicsRepository(organisationService, trace));
 		}
 	}
 }

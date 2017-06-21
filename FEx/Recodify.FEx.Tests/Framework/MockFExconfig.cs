@@ -23,6 +23,7 @@ namespace Recodify.CRM.FEx.Tests.Framework
 		}
 
 		public Guid BaseCurrencyId { get; set; }
+		public string BaseCurrencyCode { get; set; }
 		public int Revision { get; set; }
 		public RunStatus LastRunStatus { get; set; }
 

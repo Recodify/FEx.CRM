@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Recodify.CRM.FEx.Core.Extensions;
 using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Core.Models.Generic;
@@ -29,10 +30,10 @@ namespace Recodify.CRM.FEx.Core.Web
 
 		public IRestResponse<ExchangeRateCollection> GetRates(string crmUniqueName)
 		{
-			var resource = $"api/rates?rateSource={config.DataSource}&id={crmUniqueName}";			
+			var resource = $"api/rates?rateSource={config.DataSource}&id={crmUniqueName}&baseCurrencyCode={config.BaseCurrencyCode}";			
 			var request = requestFactory.Create(resource, Method.GET);
 
-			var url = GetRequestUrl(request);
+			var url = request.GetRequestUrl(requestClient);
 			trace.Trace(TraceEventType.Verbose, (int)EventId.GetRatesApiRequest, $"Making Rates Request to: {url}");
 
 			return requestClient.Execute<ExchangeRateCollection>(request);
@@ -44,15 +45,10 @@ namespace Recodify.CRM.FEx.Core.Web
 			
 			var request = requestFactory.Create(resource, Method.GET);
 
-			var url = GetRequestUrl(request);
+			var url = request.GetRequestUrl(requestClient);
 			trace.Trace(TraceEventType.Verbose, (int)EventId.NextRunDateApiRequest, $"Making Scheduling Request to: {url}");
 
 			return requestClient.Execute<SchedulingResult>(request);
-		}
-
-		private string GetRequestUrl(IRestRequest request)
-		{
-			return $"{requestClient.BaseUrl}/{request.Resource}";
-		}
+		}		
 	}
 }

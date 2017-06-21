@@ -18,6 +18,7 @@ namespace Recodify.CRM.FEx.Core.Models.Dynamics
 		decimal Time { get; }
 		string RecodifyFExUrl { get; }
 		Guid BaseCurrencyId { get; }
+		string BaseCurrencyCode { get; }
 		Entity Entity { get; }
 		void RemoveNonPersistableAttributes();
 	}

@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using NUnit.Framework;
 using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Repositories;
@@ -15,6 +16,13 @@ namespace Recodify.CRM.FEx.Tests.Integration.Dynamics
 		{
 			var service = new OrganisationServiceFactory().Create();
 			repo = new DynamicsRepository(service, new Mock<ILoggingService>().Object);
+		}
+
+		[Test]
+		public void CanGetBaseCurrencyCode()
+		{
+			var result = repo.GetBaseCurrencyCode(new Guid("33b43081-458a-e611-80ec-c4346bac0ff4"));
+			Assert.That(result, Is.EqualTo(CurrencyCode.GBP));
 		}
 
 		[Test]

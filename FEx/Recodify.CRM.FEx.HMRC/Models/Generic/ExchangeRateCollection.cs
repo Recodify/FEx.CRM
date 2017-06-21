@@ -8,6 +8,8 @@ namespace Recodify.CRM.FEx.Rates.Models.Generic
 
 		public string Period { get; set; }
 
+		public string Base { get; set; }
+
 		public string Message { get; set; }
 	}
 }

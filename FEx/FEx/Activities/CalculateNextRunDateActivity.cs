@@ -34,7 +34,7 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 				workflowContext.CorrelationId);			
 
 			var config = organisationService.GetFExConfiguration(workflowContext.PrimaryEntityId,
-				ConfigAttribute.SchedulingAttributes);
+				ConfigAttribute.SchedulingAttributes, trace);
 			try
 			{
 				var repo = new DynamicsRepository(organisationService, trace);
