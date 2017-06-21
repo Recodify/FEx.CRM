@@ -21,18 +21,25 @@ namespace Recodify.CRM.FEx.Core.Exchange
 
 		public EntityCollection Sync(EntityCollection currencies, ExchangeRateCollection rates)
 		{
+			currencies.Entities.Remove(currencies.Entities.Single(x => x.Id == config.BaseCurrencyId));
+
 			foreach (var cur in currencies.Entities)
 			{
 				var currencyCode = (string) cur.Attributes[CurrencyAttribute.CurrencyCode];
 				var rate = rates.Items.SingleOrDefault(x => x.CurrencyCode.Equals(currencyCode, StringComparison.OrdinalIgnoreCase));
 				if (rate == null)
+				{
 					trace.Trace(TraceEventType.Warning, (int) EventId.UnableToFindRateForCurrency,
 						$"Unable to find rate for currency with code {currencyCode}. Consider chossing a different data source that supplies data for your currency set.");
+				}
 				else
+				{
 					cur.Attributes[CurrencyAttribute.ExchangeRate] = rate.RateNew;
+					var msg = $"Setting currency {currencyCode} to {rate.RateNew}";
+					trace.Trace(TraceEventType.Verbose, (int) EventId.CurrencySyncSetExchangeRate, msg);
+				}
 			}
-
-			currencies.Entities.Remove(currencies.Entities.Single(x => x.Id == config.BaseCurrencyId));
+			
 			return currencies;
 		}
 	}

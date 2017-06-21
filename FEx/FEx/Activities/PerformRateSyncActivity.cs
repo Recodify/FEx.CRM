@@ -24,7 +24,7 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 			try
 			{
 				var rateSyncJob = new RateSyncJob(new DynamicsRepository(organisationService, trace), organisationService, config,
-					trace);
+					trace, workflowContext.CorrelationId);
 				rateSyncJob.Execute();
 			}
 			catch (Exception exp)

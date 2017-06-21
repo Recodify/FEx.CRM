@@ -38,7 +38,7 @@ namespace Recodify.CRM.FEx.Dynamics.Activities
 			try
 			{
 				var repo = new DynamicsRepository(organisationService, trace);
-				var nextRunDate = new CalculateNextRunDateJob(repo, config, trace, workflowContext.Depth).Execute();
+				var nextRunDate = new CalculateNextRunDateJob(repo, config, trace, workflowContext.Depth, workflowContext.CorrelationId).Execute();
 				CurrentRevision.Set(executionContext, config.Revision);
 				NextRunDate.Set(executionContext, nextRunDate.NextDate.UtcDateTime);
 			}

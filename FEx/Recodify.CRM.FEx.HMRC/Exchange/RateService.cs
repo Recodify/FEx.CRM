@@ -1,6 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using Recodify.CRM.FEx.Core.Exceptions;
+using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
+using Recodify.CRM.FEx.Core.Web;
 using Recodify.CRM.FEx.Rates.Models.Generic;
 using RestSharp;
 
@@ -9,18 +12,19 @@ namespace Recodify.CRM.FEx.Core.Exchange
 	public class RateService
 	{
 		private readonly IFExConfig config;
+		private readonly ILoggingService trace;		
+		private readonly ApiClient api;
 
-		public RateService(IFExConfig config)
+		public RateService(IFExConfig config, ILoggingService trace, Guid correlationId)
 		{
 			this.config = config;
+			this.trace = trace;			
+			api = new ApiClient(config, trace, correlationId);
 		}
 
 		public ExchangeRateCollection GetRates(string crmUniqueName)
 		{
-			var client = new RestClient(config.RecodifyFExUrl);
-			var request = new RestRequest(BuildResourceUrl(crmUniqueName), Method.GET);
-			var response = client.Execute<ExchangeRateCollection>(request);
-
+			var response = api.GetRates(crmUniqueName);
 			if (response.StatusCode != HttpStatusCode.OK)
 			{
 				var message = response?.Data?.Message;
@@ -29,11 +33,6 @@ namespace Recodify.CRM.FEx.Core.Exchange
 			}
 
 			return response.Data;
-		}
-
-		private string BuildResourceUrl(string crmUniqueName)
-		{
-			return $"api/rates?rateSource={config.DataSource}&id={crmUniqueName}";
 		}
 	}
 }

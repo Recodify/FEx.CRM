@@ -19,7 +19,7 @@ namespace Recodify.CRM.FEx.Tests.Integration.Core
 				ConfigAttribute.SchedulingAttributes);
 			var repo = new AssertableDynamicsRepo(service);
 
-			var job = new CalculateNextRunDateJob(repo, config, new Mock<ILoggingService>().Object, 1);
+			var job = new CalculateNextRunDateJob(repo, config, new Mock<ILoggingService>().Object, 1, Guid.NewGuid());
 			job.Execute();
 
 			Assert.AreEqual(repo.SaveNextRunDateCallCount, 1);

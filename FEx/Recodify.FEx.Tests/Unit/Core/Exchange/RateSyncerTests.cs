@@ -92,6 +92,32 @@ namespace Recodify.CRM.FEx.Tests.Unit
 			Assert.That(gbp, Is.Null);
 		}
 
+		[Test]
+		public void ShouldNotLogWarning_WhenBaseCurrencyNotSupplied()
+		{
+			var loggingService = new Mock<ILoggingService>();
+			var baseCurencyId = Guid.NewGuid();
+			var rateSyncer = new RateSyncer(new MockFExConfig { BaseCurrencyId = baseCurencyId }, loggingService.Object);
+
+			var currencies = CreateCurrencyCollection(baseCurencyId);
+
+			var rates = new ExchangeRateCollection
+			{
+				Items = new List<ExchangeRate>
+				{					
+					new ExchangeRate {CurrencyCode = CurrencyCode.EUR, RateNew = 1.2M},
+					new ExchangeRate {CurrencyCode = CurrencyCode.USD, RateNew = 1.4M}
+				}
+			};
+
+			rateSyncer.Sync(currencies, rates);
+
+			loggingService.Verify(
+				x =>
+					x.Trace(TraceEventType.Warning, (int)EventId.UnableToFindRateForCurrency,
+						It.IsAny<string>()), Times.Never);
+		}
+
 		private EntityCollection CreateCurrencyCollection(Guid baseCurrencyId)
 		{
 			var currencies = new EntityCollection(new List<Entity>

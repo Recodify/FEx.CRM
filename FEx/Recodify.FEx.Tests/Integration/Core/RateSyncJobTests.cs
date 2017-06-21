@@ -20,7 +20,7 @@ namespace Recodify.CRM.FEx.Tests.Integration.Core
 				ConfigAttribute.RunAttributes);
 			var repo = new AssertableDynamicsRepo(service);
 
-			var job = new RateSyncJob(repo, service, config, new Mock<ILoggingService>().Object);
+			var job = new RateSyncJob(repo, service, config, new Mock<ILoggingService>().Object, Guid.NewGuid());
 			job.Execute();
 
 			Assert.AreEqual(repo.SaveCurrenciesCallCount, 1);

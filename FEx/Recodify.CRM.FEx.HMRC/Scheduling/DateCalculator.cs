@@ -32,7 +32,7 @@ namespace Recodify.CRM.FEx.Core.Scheduling
 
 		private DateTimeOffset? BackoffAndRetry(RunStatus lastRunStatus, int depth)
 		{
-			trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput,
+			trace.Trace(TraceEventType.Verbose, (int) EventId.BackOffAndRetry,
 				$"Last Run Status was: {lastRunStatus}. Backing off and retrying.");
 
 			var backOffDateTime = new ZonedDateTime(
@@ -41,12 +41,12 @@ namespace Recodify.CRM.FEx.Core.Scheduling
 
 			if (depth >= MaxDepth)
 			{
-				trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput,
+				trace.Trace(TraceEventType.Verbose, (int) EventId.BackOffAndRetry,
 					$"Current depth {depth} is equal to greater than Max depth {MaxDepth}. Using MaxBackOffInterval of {MaxBackOffInterval}");
 				return new DateTimeOffset(backOffDateTime.PlusMinutes(MaxBackOffInterval).ToDateTimeUtc());
 			}
 
-			trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput,
+			trace.Trace(TraceEventType.Verbose, (int) EventId.BackOffAndRetry,
 				$"Backing off for {depth * BackOffInterval}");
 
 			return new DateTimeOffset(backOffDateTime.PlusMinutes(depth * BackOffInterval).ToDateTimeUtc());
@@ -54,7 +54,7 @@ namespace Recodify.CRM.FEx.Core.Scheduling
 
 		private DateTimeOffset? CalculateFromSchedule(Frequency frequency, int day, decimal time, RunStatus lastRunStatus)
 		{
-			trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput,
+			trace.Trace(TraceEventType.Information, (int)EventId.CalculatingFromSchedule,
 				$"Last Run Status was: {lastRunStatus}. Calcultaing from schedule.");
 			var hour = Math.Floor(time);
 			var min = (time - hour) * 100;

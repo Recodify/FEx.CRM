@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Collinson.Messaging.RabbitMq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.15\lib\net40\Collinson.Messaging.RabbitMq.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.17\lib\net40\Collinson.Messaging.RabbitMq.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
@@ -70,10 +70,10 @@
       <HintPath>..\packages\Quartz.2.5.0\lib\net40\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="Recodify.Logging.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.15\lib\net40\Recodify.Logging.Common.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.17\lib\net40\Recodify.Logging.Common.dll</HintPath>
     </Reference>
     <Reference Include="Recodify.Logging.Dynamics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.15\lib\net40\Recodify.Logging.Dynamics.dll</HintPath>
+      <HintPath>..\packages\Recodify.Logging.Dynamics.0.0.17\lib\net40\Recodify.Logging.Dynamics.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
@@ -134,6 +134,8 @@
     <Compile Include="Scheduling\DateCalculator.cs" />
     <Compile Include="Scheduling\Frequency.cs" />
     <Compile Include="Scheduling\SchedulingService.cs" />
+    <Compile Include="Web\ApiClient.cs" />
+    <Compile Include="Web\RequestFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="job_scheduling_data_2_0.xsd">

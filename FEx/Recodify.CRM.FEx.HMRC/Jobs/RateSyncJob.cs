@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Xrm.Sdk;
 using Recodify.CRM.FEx.Core.Exchange;
 using Recodify.CRM.FEx.Core.Logging;
@@ -18,13 +19,13 @@ namespace Recodify.CRM.FEx.Core.Jobs
 		private readonly ILoggingService trace;
 
 		public RateSyncJob(DynamicsRepository repository, IOrganizationService organisationService, IFExConfig config,
-			ILoggingService trace)
+			ILoggingService trace, Guid correlationId)
 		{
 			this.organisationService = organisationService;
 			this.config = config;
 			this.trace = trace;
 			repo = repository;
-			rateService = new RateService(config);
+			rateService = new RateService(config, trace, correlationId);
 			rateSyncer = new RateSyncer(config, trace);
 		}
 

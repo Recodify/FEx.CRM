@@ -5,29 +5,23 @@ using Recodify.CRM.FEx.Core.Exceptions;
 using Recodify.CRM.FEx.Core.Logging;
 using Recodify.CRM.FEx.Core.Models.Dynamics;
 using Recodify.CRM.FEx.Core.Models.Generic;
+using Recodify.CRM.FEx.Core.Web;
 using RestSharp;
 
 namespace Recodify.CRM.FEx.Core.Scheduling
 {
 	public class SchedulingService
-	{
-		private readonly IFExConfig config;
-		private readonly ILoggingService trace;
+	{		
+		private readonly ApiClient api;
 
-		public SchedulingService(IFExConfig config, ILoggingService trace)
+		public SchedulingService(IFExConfig config, ILoggingService trace, Guid correlationId)
 		{
-			this.config = config;
-			this.trace = trace;
+			api = new ApiClient(config, trace, correlationId);
 		}
 
 		public DateTime GetNextRunDate(string crmUniqueName, int depth)
 		{
-			var client = new RestClient(config.RecodifyFExUrl);
-			var request = new RestRequest(BuildResourceUrl(crmUniqueName, depth), Method.GET);
-			var url = $"{client.BaseUrl}/{request.Resource}";
-			trace.Trace(TraceEventType.Verbose, (int) EventId.NextRunDateOutput, $"Making Scheduling Request to: {url}");
-			var response = client.Execute<SchedulingResult>(request);
-
+			var response = api.GetNextRunDate(crmUniqueName, depth);
 			if (response.StatusCode != HttpStatusCode.OK)
 			{
 				var message = response?.Data?.Message;
@@ -36,12 +30,6 @@ namespace Recodify.CRM.FEx.Core.Scheduling
 			}
 
 			return response.Data.NextRunDate;
-		}
-
-		private string BuildResourceUrl(string crmUniqueName, int depth)
-		{
-			return
-				$"api/schedule?id={crmUniqueName}&frequency={config.Frequency}&day={config.Day}&time={config.Time}&lastRunStatus={config.LastRunStatus}&depth={depth}";
 		}
 	}
 }

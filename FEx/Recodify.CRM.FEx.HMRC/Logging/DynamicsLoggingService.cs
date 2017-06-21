@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
@@ -15,7 +16,7 @@ namespace Recodify.CRM.FEx.Core.Logging
 		private readonly ITracingService tracingService;
 		private readonly string uniqueName;
 		private readonly Guid workflowId;
-
+		
 		public DynamicsLoggingService(ITracingService tracingService, string uniqueName, Guid workflowId)
 		{
 			this.tracingService = tracingService;
@@ -33,9 +34,9 @@ namespace Recodify.CRM.FEx.Core.Logging
 			if (type == TraceEventType.Warning)
 				HasWarnings = true;
 
-			//var formattedMessage = message.Select(x => x.ToString()).Aggregate((c, n) => c + Environment.NewLine + n);
-			//tracingService.Trace($"{type} ({id}): {formattedMessage}");
+			var formattedMessage = message.Select(x => x.ToString()).Aggregate((c, n) => c + Environment.NewLine + n);
+			tracingService.Trace($"{type} ({id}): {formattedMessage}");
 			logglyTrace.TraceData(type, id, message);
-		}
+		}		
 	}
 }

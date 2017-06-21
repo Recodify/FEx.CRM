@@ -3,7 +3,9 @@
 	public enum EventId
 	{
 		// Verbose Information
-		NextRunDateOutput = 13001,
+		NextRunDateApiRequest = 13001,
+		GetRatesApiRequest = 13002,
+		CurrencySyncSetExchangeRate = 13103,
 
 		// Information
 		StartingNextRunDateCalculation = 1101,
@@ -17,6 +19,8 @@
 		GettingUniqueOrganizationName = 1206,
 		SavingLastSyncDate = 1207,
 		SavingLastRunStatus = 1208,
+		CalculatingFromSchedule = 1209,
+		BackOffAndRetry = 1210,
 		CompletedRateSyncSuccess = 1295,
 
 		// Warning
