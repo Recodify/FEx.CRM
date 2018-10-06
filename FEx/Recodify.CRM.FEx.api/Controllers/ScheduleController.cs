@@ -22,11 +22,13 @@ namespace Recodify.CRM.FEx.api.Controllers
 				var nextRunDate = calculator.Calculate(frequency, day, time, lastRunStatus, depth);
 
 				if (!nextRunDate.HasValue)
+				{
 					return Request.CreateResponse(HttpStatusCode.BadRequest,
 						new SchedulingResult
 						{
 							Message = "Unable to Calculate Next Run Date, ensure you have specified valid scheduling attributes"
 						});
+				}
 
 				return Request.CreateResponse(HttpStatusCode.OK, new SchedulingResult {NextRunDate = nextRunDate.Value.UtcDateTime});
 			}

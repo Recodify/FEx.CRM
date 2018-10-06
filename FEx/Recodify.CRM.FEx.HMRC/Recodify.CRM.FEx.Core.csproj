@@ -109,6 +109,7 @@
     <Compile Include="Extensions\IOrganisationServiceExtensions.cs" />
     <Compile Include="Extensions\IRestRequestExtensions.cs" />
     <Compile Include="Extensions\RunStatusExtensions.cs" />
+    <Compile Include="FixerExchangeRateService.cs" />
     <Compile Include="HmrcExchangeRateService.cs" />
     <Compile Include="Jobs\CalculateNextRunDateJob.cs" />
     <Compile Include="Jobs\JobCompleter.cs" />

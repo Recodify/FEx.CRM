@@ -12,7 +12,7 @@ namespace Recodify.CRM.FEx.api.Controllers
 {
 	public class RatesController : ApiController
 	{
-		// GET api/rates/blah
+		// GET api/rates/
 		public HttpResponseMessage Get(string id, string rateSource, string baseCurrencyCode)
 		{
 			var trace = new GenericLoggingService("Details");
@@ -23,6 +23,7 @@ namespace Recodify.CRM.FEx.api.Controllers
 				var rates = service.GetRates(ConfigurationManager.AppSettings["hmrcexchangerate:url"], baseCurrencyCode);
 				return BuildSuccessResponse(rates);
 			}
+			
 			if (rateSource.Equals(RateDataSource.Fixer.ToString(), StringComparison.InvariantCultureIgnoreCase))
 			{
 				var service = new FixerExchangeRateService(trace);
@@ -30,8 +31,7 @@ namespace Recodify.CRM.FEx.api.Controllers
 				return BuildSuccessResponse(rates);
 			}
 
-			return Request.CreateResponse(HttpStatusCode.BadRequest,
-				new ExchangeRateCollection {Message = "Unknown Rate Source Specified"});
+			return Request.CreateResponse(HttpStatusCode.BadRequest, new ExchangeRateCollection {Message = "Unknown Rate Source Specified"});
 		}
 
 		private HttpResponseMessage BuildSuccessResponse(ExchangeRateCollection rates)
